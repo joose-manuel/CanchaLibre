@@ -5,6 +5,9 @@
   "projectType": "application",
   "tags": ["scope:api", "type:app"],
   "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
