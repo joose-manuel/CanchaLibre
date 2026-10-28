@@ -1,0 +1,33 @@
+<svg
+  class="sport-icon"
+  [attr.width]="size()"
+  [attr.height]="size()"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  @switch (sport()) {
+    @case ('futbol') {
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5l3.5 2.5-1.4 4.2H9.9L8.5 10z" />
+      <path d="M12 3v4.5M20.5 10l-4 .5M12 21v-4.5M3.5 10l4 .5" />
+    }
+    @case ('padel') {
+      <path d="M13 4a7 7 0 1 1-7 7" />
+      <path d="M4 15l6-6" />
+      <path d="M16 4h4v4" />
+    }
+    @case ('basket') {
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
+    }
+    @case ('tenis') {
+      <ellipse cx="13" cy="9" rx="6.5" ry="7.5" transform="rotate(35 13 9)" />
+      <path d="M8 16l-4 5M7 12l7 4" />
+    }
+  }
+</svg>

@@ -1,0 +1,320 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--cl-color-background);
+}
+
+.login {
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: 61px 21px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__card {
+  @include surface.cl-surface(28px);
+
+  width: min(356px, 100%);
+  box-sizing: border-box;
+  padding: 11px 32px 22px;
+}
+
+.login__header {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.login__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+  color: var(--cl-color-text);
+}
+
+.login__subtitle {
+  max-width: 260px;
+  margin: 12px auto 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--cl-color-text-secondary);
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--cl-color-text-secondary);
+}
+
+.login__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.login__label-row .login__label {
+  margin-bottom: 0;
+}
+
+.login__link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--cl-color-primary);
+  text-decoration: none;
+}
+
+.login__link--strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.login__control {
+  position: relative;
+  height: 50px;
+}
+
+.login__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  font-size: 22px;
+  color: var(--cl-color-text-muted);
+  pointer-events: none;
+}
+
+.login__input {
+  /*
+   * Se sobreescriben las variables de PrimeNG para que el input siga los
+   * tokens de CanchaLibre (y no los de Aura) en ambos temas.
+   */
+  --p-inputtext-background: var(--cl-color-surface-muted);
+  --p-inputtext-hover-background: var(--cl-color-surface-muted);
+  --p-inputtext-focus-background: var(--cl-color-surface);
+  --p-inputtext-color: var(--cl-color-text);
+  --p-inputtext-placeholder-color: var(--cl-color-text-subtle);
+  --p-inputtext-border-color: var(--cl-border-hairline);
+  --p-inputtext-hover-border-color: var(--cl-border-hairline-strong);
+  --p-inputtext-focus-border-color: var(--cl-color-primary);
+
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 48px;
+  border: 1px solid var(--cl-border-hairline);
+  border-radius: 24px;
+  background: var(--cl-color-surface-muted);
+  box-shadow:
+    inset 0 1px 2px rgba(15, 23, 42, 0.05),
+    inset 0 1px 0 var(--cl-highlight-inset);
+  font-family: var(--cl-font-family);
+  font-size: 16px;
+  color: var(--cl-color-text);
+  transition:
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.login__input:hover {
+  background: var(--cl-color-surface-muted);
+  border-color: var(--cl-border-hairline-strong);
+}
+
+.login__input:focus {
+  border-color: var(--cl-color-primary);
+  background: var(--cl-color-surface);
+  box-shadow:
+    0 0 0 4px var(--cl-color-primary-soft),
+    inset 0 1px 0 var(--cl-highlight-inset);
+}
+
+.login__input::placeholder {
+  color: var(--cl-color-text-subtle);
+  opacity: 1;
+}
+
+.login__eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cl-color-text-muted);
+  font-size: 22px;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login__eye:hover {
+  background: var(--cl-color-surface-muted);
+  color: var(--cl-color-text-secondary);
+}
+
+.login__eye:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.login__eye .pi {
+  font-size: 22px;
+}
+
+.login__submit {
+  /*
+   * Se sobreescriben las variables de PrimeNG para que el botón siga los
+   * tokens de CanchaLibre (y no los de Aura) en ambos temas: en oscuro el
+   * azul primario es más claro y el texto debe ser oscuro para mantener el
+   * contraste.
+   */
+  --p-button-primary-background: var(--cl-color-primary);
+  --p-button-primary-border-color: transparent;
+  --p-button-primary-color: var(--cl-color-primary-contrast);
+  --p-button-primary-hover-background: var(--cl-color-primary-hover);
+  --p-button-primary-hover-border-color: transparent;
+  --p-button-primary-hover-color: var(--cl-color-primary-contrast);
+  --p-button-primary-active-background: var(--cl-color-primary-active);
+  --p-button-primary-active-border-color: transparent;
+  --p-button-primary-active-color: var(--cl-color-primary-contrast);
+
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+}
+
+.login__submit ::ng-deep button {
+  width: 100%;
+  height: 56px;
+  border-radius: 28px;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 24px -10px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s ease,
+    filter 0.24s ease;
+}
+
+.login__submit ::ng-deep button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 30px -12px var(--cl-color-primary-soft-strong);
+}
+
+.login__submit ::ng-deep button:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.login__submit ::ng-deep .p-button-label {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 38px 0 44px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--cl-color-text-muted);
+  white-space: nowrap;
+}
+
+.login__divider::before,
+.login__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--cl-border-subtle);
+}
+
+.login__social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.login__register {
+  margin: 40px 0 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--cl-color-text-secondary);
+}
+
+.login__terms {
+  width: min(310px, 100%);
+  margin: 50px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--cl-color-text-muted);
+}
+
+.login__terms a {
+  color: var(--cl-color-text-muted);
+  text-decoration: underline;
+}
+
+/* ---------- Preferencias de accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .login__submit ::ng-deep button,
+  .login__input,
+  .login__eye {
+    transition: opacity 0.2s ease;
+  }
+
+  .login__submit ::ng-deep button:hover,
+  .login__submit ::ng-deep button:active,
+  .login__eye:active {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .login__card {
+    border-color: rgba(15, 23, 42, 0.5);
+    box-shadow: none;
+  }
+
+  .login__input {
+    border-color: rgba(15, 23, 42, 0.4);
+  }
+}

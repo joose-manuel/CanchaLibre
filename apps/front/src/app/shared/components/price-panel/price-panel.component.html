@@ -1,0 +1,23 @@
+<section class="price">
+  <button type="button" class="price__action" (click)="action.emit()">
+    <span class="price__action-label">{{ actionLabel() }}</span>
+    <i class="pi pi-arrow-right" aria-hidden="true"></i>
+  </button>
+
+  @if (caption()) {
+    <p class="price__caption">{{ caption() }}</p>
+  }
+
+  <p class="price__total">
+    {{ total() }}
+  </p>
+
+  <div class="price__lines">
+    @for (line of lines(); track line.label) {
+      <div class="price__line">
+        <span class="price__line-label">{{ line.label }}</span>
+        <span class="price__line-value">{{ line.value }}</span>
+      </div>
+    }
+  </div>
+</section>

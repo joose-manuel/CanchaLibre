@@ -1,0 +1,20 @@
+<section class="splash" role="status" aria-label="Cargando CanchaLibre">
+  <span class="splash__glow splash__glow--top" aria-hidden="true"></span>
+  <span class="splash__glow splash__glow--bottom" aria-hidden="true"></span>
+
+  <div class="splash__brand">
+    <span class="splash__ripple" aria-hidden="true"></span>
+    <cl-brand-logo [size]="112" [intro]="true" [ballAnimation]="'spin'" />
+    <p class="splash__tagline">{{ tagline() }}</p>
+  </div>
+
+  <footer class="splash__footer">
+    <p-progressbar
+      class="splash__progress"
+      [value]="progress()"
+      [showValue]="false"
+    />
+    <p class="splash__country">{{ country() }}</p>
+    <p class="splash__version">{{ version() }}</p>
+  </footer>
+</section>

@@ -1,0 +1,35 @@
+@for (section of sections(); track section.title) {
+  <div class="settings__group">
+    <h3 class="settings__title">{{ section.title }}</h3>
+
+    <ul class="settings__list">
+      @for (item of section.items; track item.key) {
+        <li class="settings__item" [class.settings__item--danger]="item.tone === 'danger'">
+          <span class="settings__icon" aria-hidden="true">
+            <i [class]="item.icon"></i>
+          </span>
+
+          @if (item.kind === 'toggle') {
+            <label class="settings__label">
+              <span class="settings__text">{{ item.label }}</span>
+              <input
+                type="checkbox"
+                class="settings__checkbox"
+                [checked]="item.value ?? false"
+                (change)="onToggle(item, $event)"
+              />
+              <span class="settings__switch" aria-hidden="true"></span>
+            </label>
+          } @else {
+            <button type="button" class="settings__action" (click)="action.emit(item)">
+              <span class="settings__text">{{ item.label }}</span>
+              @if (item.tone !== 'danger') {
+                <i class="pi pi-angle-right settings__chevron" aria-hidden="true"></i>
+              }
+            </button>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+}

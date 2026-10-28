@@ -1,0 +1,376 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: contents;
+}
+
+/* ---------- Barra inferior (móvil) ---------- */
+
+/*
+ * El host usa `display: contents`, por lo que el posicionamiento fijo
+ * debe vivir en `.nav` (no en el host) para que la barra quede flotando
+ * sobre el contenido sin ocupar espacio en el flujo.
+ */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  width: auto;
+  pointer-events: none;
+}
+
+.nav__bar {
+  /*
+   * Material perlado opaco: la barra flota sobre contenido que se desplaza,
+   * así que translucidez haría que el texto se viera a través y se leyera mal.
+   * El matiz perlado + borde hairline + sombra difusa son los que la
+   * separan del fondo.
+   */
+  @include surface.cl-surface-pearl(26px);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(380px, calc(100% - 32px));
+  height: 64px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: auto;
+  animation: nav-bar-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Brillo difuminado en el borde superior, como el material de Apple. */
+.nav__bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--cl-highlight-top) 0%,
+    rgba(255, 255, 255, 0) 52%
+  );
+}
+
+/*
+ * Indicador deslizante del tab activo (patrón iOS): el "pill" viaja de un
+ * icono al siguiente en lugar de aparecer y desaparecer. Se posiciona con
+ * transform para que el movimiento lo resuelva el compositor.
+ */
+.nav__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 14px;
+  background: var(--cl-color-primary-soft);
+  box-shadow: inset 0 0 0 1px var(--cl-color-primary-soft-strong);
+  pointer-events: none;
+  will-change: transform, width, height;
+  transition:
+    transform 0.42s cubic-bezier(0.32, 0.72, 0, 1),
+    width 0.42s cubic-bezier(0.32, 0.72, 0, 1),
+    height 0.42s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.24s ease;
+}
+
+.nav__item {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  border: 0;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--cl-color-text-muted);
+  cursor: pointer;
+  transition:
+    color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.16s ease-out;
+}
+
+.nav__item i {
+  font-size: 19px;
+  transition:
+    transform 0.42s cubic-bezier(0.34, 1.4, 0.64, 1),
+    color 0.28s ease;
+}
+
+.nav__item span {
+  transition:
+    opacity 0.28s ease,
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav__item--active {
+  color: var(--cl-color-primary);
+  font-weight: 700;
+}
+
+/*
+ * El icono activo escala, pero sin desplazamiento: el indicador se alinea
+ * con las métricas de layout del icono, así que cualquier `translate` lo
+ * desalinearía.
+ */
+.nav__item--active i {
+  transform: scale(1.12);
+}
+
+/* Respuesta inmediata al presionar (sin esperar al release). */
+.nav__item:active {
+  transform: scale(0.9);
+}
+
+.nav__item:active i {
+  transform: scale(0.88);
+}
+
+.nav__spacer {
+  flex: 0 0 72px;
+}
+
+.nav__fab {
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cl-color-primary);
+  cursor: pointer;
+  pointer-events: auto;
+  animation: nav-fab-in 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation-delay: 0.08s;
+}
+
+.nav__fab i {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 4px solid var(--cl-color-surface);
+  border-radius: 50%;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-size: 20px;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 14px 26px -10px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.24s ease;
+}
+
+.nav__fab:hover i {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 32px -10px var(--cl-color-primary-soft-strong);
+}
+
+.nav__fab:active i {
+  transform: scale(0.9);
+}
+
+/* ---------- Menú lateral (escritorio) ---------- */
+
+.sidebar {
+  @include surface.cl-surface-float(0);
+
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 248px;
+  min-height: 100dvh;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  border-width: 0 1px 0 0;
+  border-radius: 0;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 12px;
+}
+
+.sidebar__brand-name {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cl-color-text);
+}
+
+.sidebar__create {
+  @include surface.cl-button-primary(14px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  margin-bottom: 8px;
+  color: var(--cl-color-primary-contrast);
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar__create:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: var(--cl-shadow-primary-hover);
+}
+
+.sidebar__create:active {
+  transform: scale(0.98);
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--cl-color-text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.28s ease,
+    transform 0.16s ease-out;
+}
+
+.sidebar__item i {
+  font-size: 18px;
+  transition: transform 0.42s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.sidebar__item--active {
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-weight: 700;
+}
+
+.sidebar__item--active i {
+  transform: scale(1.12);
+}
+
+.sidebar__item:hover:not(.sidebar__item--active) {
+  background: var(--cl-color-surface-muted);
+}
+
+.sidebar__item:active {
+  transform: scale(0.97);
+}
+
+.sidebar__item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sidebar__badge {
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--cl-color-danger);
+  color: var(--cl-color-primary-contrast);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ---------- Animaciones ---------- */
+
+@keyframes nav-bar-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes nav-fab-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(18px) scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* ---------- Preferencias de accesibilidad ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__bar,
+  .nav__fab,
+  .nav__indicator,
+  .nav__item,
+  .nav__item i,
+  .nav__item span,
+  .sidebar__create,
+  .sidebar__item,
+  .sidebar__item i {
+    animation: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .nav__item:active,
+  .nav__item:active i,
+  .nav__fab:active i,
+  .sidebar__create:active,
+  .sidebar__item:active {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .nav__bar,
+  .sidebar {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: none;
+  }
+
+  .nav__indicator {
+    background: var(--cl-color-primary-soft-strong);
+    box-shadow: inset 0 0 0 1px var(--cl-color-primary);
+  }
+}

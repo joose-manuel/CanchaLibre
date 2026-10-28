@@ -1,0 +1,21 @@
+<header class="header">
+  <div class="header__text">
+    @if (user().eyebrow) {
+      <p class="header__eyebrow">{{ user().eyebrow }}</p>
+    }
+    <h1 class="header__title">
+      {{ greeting() }}, {{ user().firstName }}{{ user().emoji ?? '' }}
+    </h1>
+  </div>
+
+  <div class="header__actions">
+    <cl-theme-toggle />
+
+    <button type="button" class="header__avatar" (click)="avatarPressed.emit()" aria-label="Abrir perfil">
+      <img [src]="user().avatarSrc" alt="" />
+      @if (user().online) {
+        <span class="header__status" aria-hidden="true"></span>
+      }
+    </button>
+  </div>
+</header>

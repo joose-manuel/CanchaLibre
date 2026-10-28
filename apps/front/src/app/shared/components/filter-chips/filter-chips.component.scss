@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--cl-border-hairline);
+  border-radius: 999px;
+  background: var(--cl-color-surface-muted);
+  font-family: var(--cl-font-family);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cl-color-text-secondary);
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s ease,
+    background 0.24s ease,
+    border-color 0.24s ease,
+    color 0.24s ease;
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--cl-border-hairline-strong);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    0 6px 14px -10px rgba(15, 23, 42, 0.4);
+}
+
+.chip:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.chip--active {
+  background: linear-gradient(135deg, var(--cl-color-primary) 0%, var(--cl-color-primary-hover) 100%);
+  border-color: transparent;
+  color: var(--cl-color-primary-contrast);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 8px 18px -14px var(--cl-color-primary-soft-strong);
+  font-weight: 700;
+}
+
+.chip--active:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--cl-color-primary, #137fec);
+  outline-offset: 2px;
+}

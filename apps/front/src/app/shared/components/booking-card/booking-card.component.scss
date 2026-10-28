@@ -1,0 +1,308 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.booking {
+  @include surface.cl-surface(16px);
+
+  display: flex;
+  gap: 14px;
+  padding: 12px;
+  transition:
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
+}
+
+@media (hover: hover) {
+  .booking:hover {
+    transform: translateY(-2px);
+    border-color: var(--cl-border-hairline-strong);
+    box-shadow:
+      inset 0 1px 0 var(--cl-highlight-inset),
+      0 2px 4px rgba(15, 23, 42, 0.05),
+      0 16px 28px -18px rgba(15, 23, 42, 0.4);
+  }
+}
+
+/* ---------- Portada ---------- */
+
+.booking__media {
+  flex: 0 0 84px;
+  width: 84px;
+  height: 84px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--cl-color-surface-muted);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+}
+
+.booking__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .booking:hover .booking__media img {
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- Contenido ---------- */
+
+.booking__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.booking__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--cl-color-text);
+  letter-spacing: -0.01em;
+}
+
+.booking__status {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--cl-color-primary);
+  background: var(--cl-color-info-soft);
+  border: 1px solid var(--cl-color-primary-soft-strong);
+}
+
+.booking__status[data-tone='planned'] {
+  color: var(--cl-color-text-secondary);
+  background: var(--cl-color-surface-muted);
+  border-color: rgba(100, 116, 139, 0.18);
+}
+
+.booking__status[data-tone='paid'] {
+  color: var(--cl-color-success);
+  background: var(--cl-color-success-soft);
+  border-color: rgba(21, 128, 61, 0.18);
+}
+
+.booking__status[data-tone='pending'] {
+  color: var(--cl-color-warning);
+  background: var(--cl-color-warning-soft);
+  border-color: rgba(180, 83, 9, 0.18);
+}
+
+.booking__status[data-tone='cancelled'] {
+  color: var(--cl-color-danger);
+  background: var(--cl-color-danger-soft);
+  border-color: rgba(220, 38, 38, 0.18);
+}
+
+.booking__date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--cl-color-text-secondary);
+}
+
+.booking__date i {
+  font-size: 11px;
+  color: var(--cl-color-text-muted);
+}
+
+/* ---------- Acciones ---------- */
+
+.booking__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.booking__manage {
+  flex: 1;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-family: var(--cl-font-family);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 10px 18px -12px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease,
+    background 0.24s ease;
+}
+
+.booking__manage:hover {
+  background: var(--cl-color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 14px 22px -12px var(--cl-color-primary-soft-strong);
+}
+
+.booking__manage:active {
+  transform: scale(0.98);
+}
+
+.booking__share {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 1px solid var(--cl-border-hairline-strong);
+  border-radius: 10px;
+  background: var(--cl-color-surface);
+  color: var(--cl-color-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.16s ease-out,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.booking__share:hover {
+  color: var(--cl-color-primary);
+  border-color: var(--cl-color-primary);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 8px 14px -10px rgba(15, 23, 42, 0.35);
+}
+
+.booking__share:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Participantes ---------- */
+
+.booking__players {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.booking__avatars {
+  display: inline-flex;
+}
+
+.booking__avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--cl-color-surface);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+}
+
+.booking__avatars .booking__avatar + .booking__avatar {
+  margin-left: -8px;
+}
+
+.booking__avatar--empty {
+  display: grid;
+  place-items: center;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 11px;
+}
+
+.booking__missing {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cl-color-text-muted);
+}
+
+/* ---------- Pago ---------- */
+
+.booking__payment {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.booking__payment-caption {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--cl-color-text-muted);
+}
+
+.booking__payment-amount {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--cl-color-primary);
+}
+
+.booking__progress {
+  height: 5px;
+  margin-top: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--cl-color-primary-soft);
+}
+
+.booking__progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cl-color-primary);
+  animation: booking-progress 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes booking-progress {
+  from {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  to {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking,
+  .booking__media img,
+  .booking__manage,
+  .booking__share,
+  .booking__progress span {
+    animation: none;
+    transition: opacity 0.2s ease;
+  }
+}

@@ -1,0 +1,85 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.breakdown {
+  @include surface.cl-surface(18px);
+
+  padding: 16px;
+}
+
+.breakdown__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.breakdown__header i {
+  font-size: 15px;
+  color: var(--cl-color-primary);
+}
+
+.breakdown__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cl-color-text);
+}
+
+.breakdown__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.breakdown__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.breakdown__label {
+  color: var(--cl-color-text-secondary);
+}
+
+.breakdown__caption {
+  display: block;
+  font-size: 11px;
+  color: var(--cl-color-text-muted);
+}
+
+.breakdown__value {
+  font-weight: 600;
+  color: var(--cl-color-text);
+  white-space: nowrap;
+}
+
+.breakdown__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--cl-border-hairline);
+}
+
+.breakdown__total-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cl-color-text);
+}
+
+.breakdown__total-value {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cl-color-primary);
+}

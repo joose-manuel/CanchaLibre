@@ -1,0 +1,9 @@
+<div class="qr" role="img" [attr.aria-label]="'Código QR de acceso ' + payload()">
+  @for (row of cells(); track $index) {
+    <span class="qr__row">
+      @for (cell of row; track $index) {
+        <span class="qr__cell" [class.qr__cell--on]="cell"></span>
+      }
+    </span>
+  }
+</div>

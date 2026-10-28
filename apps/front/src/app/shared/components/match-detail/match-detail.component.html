@@ -1,0 +1,95 @@
+<section
+  class="match-detail"
+  [class.match-detail--closing]="closing()"
+  aria-modal="true"
+  role="dialog"
+  aria-label="Detalle del partido"
+>
+  <div class="match-detail__sheet">
+    <div class="match-detail__header">
+      <button type="button" class="match-detail__back" aria-label="Cerrar detalle" (click)="closed.emit()">
+        <i class="pi pi-arrow-left" aria-hidden="true"></i>
+      </button>
+
+      <h2>Detalles del Partido</h2>
+
+      <button type="button" class="match-detail__icon" aria-label="Compartir partido">
+        <i class="pi pi-share-alt" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="match-detail__media">
+      <img [src]="match().imageSrc" [alt]="match().venue" />
+      <button type="button" class="match-detail__map-button">
+        <i class="pi pi-map-marker" aria-hidden="true"></i>
+        Ver mapa
+      </button>
+    </div>
+
+    <div class="match-detail__title-row">
+      <h3>{{ match().venue }}</h3>
+      <span class="match-detail__badge">6v6</span>
+    </div>
+
+    <p class="match-detail__address">
+      <i class="pi pi-map-marker" aria-hidden="true"></i>
+      {{ match().address }}
+    </p>
+
+    <div class="match-detail__stats">
+      <div class="match-detail__stat">
+        <i class="pi pi-calendar" aria-hidden="true"></i>
+        <div>
+          <span>Fecha</span>
+          <strong>Jueves, Oct 24</strong>
+        </div>
+      </div>
+
+      <div class="match-detail__stat">
+        <i class="pi pi-clock" aria-hidden="true"></i>
+        <div>
+          <span>Hora</span>
+          <strong>8:00 PM - 9:00 PM</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="match-detail__capacity">
+      <div class="match-detail__capacity-head">
+        <span>Cupos Disponibles</span>
+        <strong>{{ match().joinedPlayers }} / {{ match().totalPlayers }} jugadores</strong>
+      </div>
+      <div class="match-detail__progress">
+        <span [style.width.%]="(match().joinedPlayers / match().totalPlayers) * 100"></span>
+      </div>
+      <p class="match-detail__hint">¡Sólo quedan 4 cupos! ¡Únete pronto.</p>
+    </div>
+
+    <div class="match-detail__payment">
+      <div class="match-detail__payment-row">
+        <span>Precio Total del Partido</span>
+        <strong>$120.000 COP</strong>
+      </div>
+
+      <div class="match-detail__payment-row">
+        <span>Saldo Pendiente (en cancha)</span>
+        <strong>$84.000 COP</strong>
+      </div>
+
+      <div class="match-detail__payment-box">
+        <div>
+          <span>Pago Anticipado</span>
+          <small>Reserva asegurada</small>
+        </div>
+        <strong>$36.000 <small>COP</small></strong>
+      </div>
+    </div>
+
+    <div class="match-detail__map" aria-label="Mapa del partido"></div>
+
+    <button type="button" class="match-detail__cta" (click)="closed.emit()">
+      Unirme y Pagar Anticipado
+      <i class="pi pi-arrow-right" aria-hidden="true"></i>
+    </button>
+  </div>
+</section>

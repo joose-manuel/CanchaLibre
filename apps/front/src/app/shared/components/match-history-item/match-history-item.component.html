@@ -1,0 +1,23 @@
+<article class="history-item">
+  <span class="history-item__icon" aria-hidden="true">
+    <cl-sport-icon [sport]="entry().sport" [size]="20" />
+  </span>
+
+  <div class="history-item__info">
+    <h3 class="history-item__title">{{ entry().venueName }}</h3>
+    <p class="history-item__meta">
+      {{ entry().dateLabel }} &bull; {{ entry().sportLabel }}
+    </p>
+  </div>
+
+  <div class="history-item__result">
+    <strong class="history-item__score">{{ entry().score }}</strong>
+    <span
+      class="history-item__label"
+      [class.history-item__label--win]="entry().result === 'victoria'"
+      [class.history-item__label--loss]="entry().result === 'derrota'"
+    >
+      {{ entry().resultLabel }}
+    </span>
+  </div>
+</article>

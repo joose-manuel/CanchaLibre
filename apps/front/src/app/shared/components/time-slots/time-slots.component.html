@@ -1,0 +1,15 @@
+<div class="slots" role="listbox" aria-label="Franjas horarias disponibles">
+  @for (slot of slots(); track slot.value) {
+    <button
+      type="button"
+      class="slot"
+      role="option"
+      [class.slot--active]="slot.value === selected()"
+      [disabled]="!slot.available"
+      [attr.aria-selected]="slot.value === selected()"
+      (click)="selectedChange.emit(slot.value)"
+    >
+      {{ slot.label }}
+    </button>
+  }
+</div>

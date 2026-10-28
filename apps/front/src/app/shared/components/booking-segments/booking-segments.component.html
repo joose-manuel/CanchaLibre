@@ -1,0 +1,14 @@
+<div class="segments" role="tablist">
+  @for (segment of segments(); track segment.value) {
+    <button
+      type="button"
+      class="segments__item"
+      role="tab"
+      [class.segments__item--active]="segment.value === selected()"
+      [attr.aria-selected]="segment.value === selected()"
+      (click)="selectedChange.emit(segment.value)"
+    >
+      {{ segment.label }}
+    </button>
+  }
+</div>

@@ -1,0 +1,113 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--cl-color-background);
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.dashboard__body {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.dashboard__top {
+  @include surface.cl-surface-float(0);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 14px 14px;
+  border-width: 0 0 1px;
+  border-radius: 0 0 20px 20px;
+}
+
+.dashboard__content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 16px 0;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.dashboard__empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 15px;
+  color: var(--cl-color-text-secondary);
+}
+
+/* Escalonado de entrada de las cards. */
+.dashboard__grid ::ng-deep cl-match-card:nth-child(1) .match {
+  animation-delay: 0.04s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(2) .match {
+  animation-delay: 0.12s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(3) .match {
+  animation-delay: 0.2s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(4) .match {
+  animation-delay: 0.28s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(n + 5) .match {
+  animation-delay: 0.34s;
+}
+
+/* El menú inferior se posiciona dentro del componente `cl-app-menu`. */
+
+@media (min-width: 960px) {
+  .dashboard__body {
+    padding-bottom: 0;
+  }
+
+  .dashboard__top {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+    padding: 24px 40px;
+  }
+
+  .dashboard__top cl-dashboard-header {
+    flex: 0 0 auto;
+  }
+
+  .dashboard__top cl-search-field {
+    flex: 1 1 300px;
+    min-width: 280px;
+    max-width: 480px;
+  }
+
+  .dashboard__top cl-filter-chips {
+    flex: 0 0 auto;
+  }
+
+  .dashboard__content {
+    padding: 32px 40px 48px;
+    max-width: 1180px;
+  }
+
+  .dashboard__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}

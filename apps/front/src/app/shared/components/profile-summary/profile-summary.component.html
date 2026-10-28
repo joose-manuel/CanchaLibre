@@ -1,0 +1,41 @@
+<section class="summary">
+  <div class="summary__avatar-wrap">
+    <div class="summary__avatar">
+      @if (user().avatarUrl) {
+        <img [src]="user().avatarUrl" [alt]="user().fullName" />
+      } @else {
+        <span class="summary__initials">{{ user().fullName.charAt(0) }}</span>
+      }
+    </div>
+
+    <span class="summary__avatar-badge" aria-hidden="true">
+      <i class="pi pi-user"></i>
+    </span>
+  </div>
+
+  <h2 class="summary__name">{{ user().fullName }}</h2>
+
+  <p class="summary__location">
+    <i class="pi pi-map-marker" aria-hidden="true"></i>
+    {{ user().city }}
+  </p>
+
+  <div class="summary__stats">
+    <article class="stat stat--level">
+      <span class="stat__label">Nivel</span>
+      <strong class="stat__value">{{ user().levelLabel }}</strong>
+    </article>
+
+    <article class="stat stat--sports">
+      <span class="stat__label">Deportes</span>
+      <div class="stat__sports">
+        @for (sport of user().sports; track sport.key) {
+          <span class="stat__sport" [title]="sport.label">
+            <cl-sport-icon [sport]="sport.key" [size]="20" />
+          </span>
+        }
+        <span class="stat__badge">{{ user().levelBadge }}</span>
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+<div class="info" [attr.data-tone]="tone()">
+  <span class="info__icon" aria-hidden="true">
+    <i [class]="icon()"></i>
+  </span>
+
+  <div class="info__text">
+    @if (title()) {
+      <span class="info__title">{{ title() }}</span>
+    }
+    @if (subtitle()) {
+      <span class="info__subtitle">{{ subtitle() }}</span>
+    }
+  </div>
+
+  <ng-content />
+</div>

@@ -1,0 +1,26 @@
+<div class="stepper">
+  <button
+    type="button"
+    class="stepper__button"
+    aria-label="Quitar un jugador"
+    [disabled]="value() <= min()"
+    (click)="decrement()"
+  >
+    <i class="pi pi-minus" aria-hidden="true"></i>
+  </button>
+
+  <div class="stepper__value">
+    <strong class="stepper__number">{{ value() }}</strong>
+    <span class="stepper__label">JUGADORES TOTAL</span>
+  </div>
+
+  <button
+    type="button"
+    class="stepper__button"
+    aria-label="Agregar un jugador"
+    [disabled]="value() >= max()"
+    (click)="increment()"
+  >
+    <i class="pi pi-plus" aria-hidden="true"></i>
+  </button>
+</div>
