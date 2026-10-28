@@ -1,0 +1,15 @@
+<div class="picker" role="tablist" aria-label="Días">
+  @for (day of days(); track day.key) {
+    <button
+      type="button"
+      class="picker__day"
+      role="tab"
+      [class.picker__day--active]="day.isSelected"
+      [attr.aria-selected]="day.isSelected"
+      (click)="selected.emit(day.key)"
+    >
+      <span class="picker__weekday">{{ day.weekday }}</span>
+      <span class="picker__number">{{ day.dayNumber }}</span>
+    </button>
+  }
+</div>

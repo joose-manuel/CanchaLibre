@@ -1,0 +1,14 @@
+<button
+  type="button"
+  class="theme-toggle"
+  [class.theme-toggle--dark]="theme.isDark()"
+  [attr.aria-pressed]="theme.isDark()"
+  [attr.aria-label]="theme.isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+  (click)="toggle()"
+>
+  @if (theme.isDark()) {
+    <i class="pi pi-sun" aria-hidden="true"></i>
+  } @else {
+    <i class="pi pi-moon" aria-hidden="true"></i>
+  }
+</button>

@@ -1,0 +1,25 @@
+<section class="breakdown">
+  <header class="breakdown__header">
+    <i class="pi pi-wallet" aria-hidden="true"></i>
+    <h3 class="breakdown__title">Desglose de Pago</h3>
+  </header>
+
+  <div class="breakdown__lines">
+    @for (line of lines(); track line.label) {
+      <div class="breakdown__line">
+        <span class="breakdown__label">
+          {{ line.label }}
+          @if (line.caption) {
+            <small class="breakdown__caption">{{ line.caption }}</small>
+          }
+        </span>
+        <span class="breakdown__value">{{ line.value }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="breakdown__total">
+    <span class="breakdown__total-label">{{ totalLabel() }}</span>
+    <strong class="breakdown__total-value">{{ total() }}</strong>
+  </div>
+</section>

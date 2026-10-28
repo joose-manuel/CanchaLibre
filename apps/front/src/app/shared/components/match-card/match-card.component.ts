@@ -12,7 +12,7 @@ import { MatchSummary } from '../../interfaces/match-summary.interface';
 export class MatchCardComponent {
   readonly match = input.required<MatchSummary>();
   readonly ctaLabel = input('Unirse al partido');
-  readonly ctaSeverity = input<'primary' | 'secondary'>('secondary');
+  readonly ctaSeverity = input<'primary' | 'secondary'>('primary');
   readonly ctaDisabled = input(false);
   readonly showMedia = input(true);
   readonly showAvailability = input(true);

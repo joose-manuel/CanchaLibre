@@ -20,4 +20,21 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./shared/pages/dashboard/dashboard.page').then((m) => m.DashboardPage),
   },
+  {
+    path: 'perfil',
+    loadComponent: () =>
+      import('./shared/pages/profile/profile.page').then((m) => m.ProfilePage),
+  },
+  {
+    path: 'reservas',
+    loadComponent: () =>
+      import('./shared/pages/reservas/reservas.page').then((m) => m.ReservasPage),
+  },
+  {
+    path: 'crear-partido',
+    loadComponent: () =>
+      import('./shared/pages/crear-partido/crear-partido.page').then(
+        (m) => m.CrearPartidoPage,
+      ),
+  },
 ];

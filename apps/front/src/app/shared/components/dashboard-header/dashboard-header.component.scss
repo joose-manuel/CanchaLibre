@@ -6,14 +6,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
+  padding: 6px 0 2px;
+}
+
+.header__text {
+  min-width: 0;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
 }
 
 .header__eyebrow {
-  margin: 0 0 2px;
-  font-size: 13px;
+  margin: 0 0 4px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--cl-color-primary, #137fec);
 }
@@ -21,22 +33,46 @@
 .header__title {
   margin: 0;
   font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #0e152a;
+  font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--cl-color-text);
+  letter-spacing: -0.04em;
 }
 
 .header__avatar {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--cl-border-hairline-strong);
   border-radius: 50%;
-  background: none;
+  background: linear-gradient(
+    135deg,
+    var(--cl-color-primary-soft) 0%,
+    var(--cl-color-surface) 100%
+  );
   cursor: pointer;
   flex: 0 0 auto;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 2px 4px rgba(15, 23, 42, 0.05),
+    0 10px 20px -14px rgba(15, 23, 42, 0.45);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s ease;
+}
+
+.header__avatar:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 4px 8px rgba(15, 23, 42, 0.07),
+    0 16px 26px -14px rgba(15, 23, 42, 0.55);
+}
+
+.header__avatar:active {
+  transform: translateY(0) scale(0.96);
 }
 
 .header__avatar img {
@@ -48,22 +84,27 @@
 
 .header__status {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 11px;
-  height: 11px;
-  border: 2px solid #ffffff;
+  right: 1px;
+  bottom: 1px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--cl-color-surface);
   border-radius: 50%;
-  background: #22c55e;
+  background: var(--cl-color-success);
+  box-shadow: 0 0 0 2px var(--cl-color-success-soft);
 }
 
 @media (min-width: 960px) {
+  .header {
+    gap: 18px;
+  }
+
   .header__title {
-    font-size: 32px;
+    font-size: 2.4rem;
   }
 
   .header__avatar {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
   }
 }

@@ -16,7 +16,15 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: CANCHA_LIBRE_PRESET,
-        options: { darkModeSelector: 'none' },
+        options: {
+          /*
+           * PrimeNG cambia a su tema oscuro con la misma clase que usa
+           * CanchaLibre (`dark-mode` en `<html>`), de modo que ambos
+           * sistemas visuales se commutan a la vez.
+           */
+          darkModeSelector: '.dark-mode',
+          cssLayer: false,
+        },
       },
     }),
     provideHttpClient(),

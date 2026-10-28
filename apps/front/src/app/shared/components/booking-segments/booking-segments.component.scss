@@ -1,0 +1,51 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.segments {
+  @include surface.cl-surface(12px);
+
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+}
+
+.segments__item {
+  flex: 1;
+  height: 36px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  font-family: var(--cl-font-family);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cl-color-text-secondary);
+  cursor: pointer;
+  transition:
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.24s ease,
+    box-shadow 0.28s ease,
+    transform 0.16s ease-out;
+}
+
+.segments__item--active {
+  background: var(--cl-color-surface);
+  color: var(--cl-color-text);
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 6px 14px -10px rgba(15, 23, 42, 0.4);
+}
+
+.segments__item:active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segments__item {
+    transition: opacity 0.2s ease;
+  }
+}

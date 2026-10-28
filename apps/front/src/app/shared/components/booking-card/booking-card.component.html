@@ -1,0 +1,64 @@
+<article class="booking">
+  <div class="booking__media">
+    <img [src]="booking().imageSrc" [alt]="booking().venueName" />
+  </div>
+
+  <div class="booking__body">
+    <header class="booking__head">
+      <h3 class="booking__title">{{ booking().venueName }}</h3>
+      <span class="booking__status" [attr.data-tone]="booking().statusTone">
+        {{ booking().statusLabel }}
+      </span>
+    </header>
+
+    <p class="booking__date">
+      <i class="pi pi-calendar" aria-hidden="true"></i>
+      {{ booking().dateLabel }} &bull; {{ booking().timeLabel }}
+    </p>
+
+    @if (booking().manageable) {
+      <div class="booking__actions">
+        <button type="button" class="booking__manage" (click)="manage.emit(booking())">
+          Gestionar
+        </button>
+        <button
+          type="button"
+          class="booking__share"
+          aria-label="Compartir reserva"
+          (click)="share.emit(booking())"
+        >
+          <i class="pi pi-share-alt" aria-hidden="true"></i>
+        </button>
+      </div>
+    } @else {
+      <div class="booking__players">
+        @if (booking().participants.length) {
+          <span class="booking__avatars">
+            @for (player of booking().participants; track player.id) {
+              <img class="booking__avatar" [src]="player.avatarUrl" [alt]="player.name" />
+            }
+          </span>
+        } @else {
+          <span class="booking__avatar booking__avatar--empty" aria-hidden="true">
+            <i class="pi pi-user"></i>
+          </span>
+        }
+
+        @if (booking().missingPlayers > 0) {
+          <span class="booking__missing">Faltan {{ booking().missingPlayers }} jugadores</span>
+        }
+      </div>
+    }
+
+    @if (booking().priceLabel) {
+      <div class="booking__payment">
+        <span class="booking__payment-caption">{{ booking().priceCaption }}</span>
+        <strong class="booking__payment-amount">{{ booking().priceLabel }}</strong>
+      </div>
+
+      <div class="booking__progress" role="presentation">
+        <span [style.width.%]="booking().fillPercent"></span>
+      </div>
+    }
+  </div>
+</article>

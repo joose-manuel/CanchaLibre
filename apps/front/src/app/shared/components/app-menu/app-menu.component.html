@@ -20,7 +20,7 @@
           [class.sidebar__item--active]="item.key === activeKey()"
           [attr.aria-current]="item.key === activeKey() ? 'page' : null"
           [disabled]="item.disabled"
-          (click)="navigate.emit(item.key)"
+          (click)="onNavigate(item)"
         >
           <i [class]="item.icon" aria-hidden="true"></i>
           <span>{{ item.label }}</span>
@@ -34,15 +34,28 @@
 } @else {
   <nav class="nav" aria-label="Navegación principal">
     <div class="nav__bar">
+      @if (indicator().visible) {
+        <span
+          class="nav__indicator"
+          aria-hidden="true"
+          [style.transform]="
+            'translate(' + indicator().x + 'px, ' + indicator().y + 'px)'
+          "
+          [style.width.px]="indicator().width"
+          [style.height.px]="indicator().height"
+        ></span>
+      }
+
       @for (item of leftItems(); track item.key) {
         <button
+          #navItem
           type="button"
           class="nav__item"
           [class.nav__item--active]="item.key === activeKey()"
           [attr.aria-current]="item.key === activeKey() ? 'page' : null"
-          (click)="navigate.emit(item.key)"
+          (click)="onNavigate(item)"
         >
-          <i [class]="item.icon" aria-hidden="true"></i>
+          <i #navIcon [class]="item.icon" aria-hidden="true"></i>
           <span>{{ item.label }}</span>
         </button>
       }
@@ -53,13 +66,14 @@
 
       @for (item of rightItems(); track item.key) {
         <button
+          #navItem
           type="button"
           class="nav__item"
           [class.nav__item--active]="item.key === activeKey()"
           [attr.aria-current]="item.key === activeKey() ? 'page' : null"
-          (click)="navigate.emit(item.key)"
+          (click)="onNavigate(item)"
         >
-          <i [class]="item.icon" aria-hidden="true"></i>
+          <i #navIcon [class]="item.icon" aria-hidden="true"></i>
           <span>{{ item.label }}</span>
         </button>
       }
@@ -68,7 +82,6 @@
     @if (showCreate()) {
       <button type="button" class="nav__fab" aria-label="Crear partido" (click)="create.emit()">
         <i class="pi pi-plus" aria-hidden="true"></i>
-        <span class="nav__fab-label">{{ createLabel() }}</span>
       </button>
     }
   </nav>

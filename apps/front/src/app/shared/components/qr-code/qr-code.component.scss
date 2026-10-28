@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.qr {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow:
+    inset 0 0 0 1px rgba(15, 23, 42, 0.08),
+    0 10px 24px -16px rgba(15, 23, 42, 0.5);
+}
+
+.qr__row {
+  display: flex;
+}
+
+.qr__cell {
+  width: 6px;
+  height: 6px;
+}
+
+.qr__cell--on {
+  background: #0b1322;
+}

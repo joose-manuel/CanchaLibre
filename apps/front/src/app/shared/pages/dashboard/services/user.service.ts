@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserProfile } from '../interfaces/user-profile.interface';
+import { UserProfile } from '../../../interfaces/user-profile.interface';
 
 const CURRENT_USER: UserProfile = {
   id: 'u-1',

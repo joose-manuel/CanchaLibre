@@ -6,9 +6,32 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#137fec" />
-    <link rel="icon" type="image/png" href="Minimalist Sports Logo Container.ico" />
+    <link rel="icon" type="image/x-icon" href="Minimalist Sports Logo Container.ico" />
+    <script>
+      /*
+       * Aplica el tema antes del primer pintado para evitar el "flash" de
+       * tema claro al recargar en modo oscuro. Debe correr sincronamente y
+       * antes de que Angular arranque.
+       */
+      (function () {
+        try {
+          var stored = localStorage.getItem('cl_theme_mode');
+          var prefersDark =
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark =
+            stored === 'dark' || ((!stored || stored === 'system') && prefersDark);
+
+          if (isDark) {
+            document.documentElement.classList.add('dark-mode');
+            document.documentElement.style.colorScheme = 'dark';
+          }
+        } catch (e) {
+          /* localStorage puede estar bloqueado: se usa el tema claro. */
+        }
+      })();
+    </script>
   </head>
   <body>
     <cl-root></cl-root>
   </body>
-  </html>
+</html>

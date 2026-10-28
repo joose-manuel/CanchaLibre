@@ -1,0 +1,56 @@
+<main class="reservas">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="reservas__menu reservas__menu--sidebar"
+      [items]="navItems"
+      activeKey="reservas"
+      variant="sidebar"
+    />
+  }
+
+  <div class="reservas__body">
+    <header class="reservas__top">
+      <h1 class="reservas__title">Mis Reservas</h1>
+
+      <div class="reservas__top-actions">
+        <cl-theme-toggle />
+        <button type="button" class="reservas__add" aria-label="Nueva reserva">
+          <i class="pi pi-plus" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="reservas__content">
+      <cl-booking-day-picker [days]="days()" (selected)="selectedDay.set($event)" />
+
+      <cl-booking-segments
+        [segments]="segments()"
+        [selected]="selectedSegment()"
+        (selectedChange)="onSegmentChange($event)"
+      />
+
+      <div class="reservas__list">
+        @for (booking of visibleBookings(); track booking.id) {
+          <cl-booking-card
+            [booking]="booking"
+            (manage)="onManage($event)"
+            (share)="onShare($event)"
+          />
+        } @empty {
+          <p class="reservas__empty">
+            No tienes reservas en esta sección.
+          </p>
+        }
+      </div>
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="reservas__menu reservas__menu--bottom"
+      [items]="navItems"
+      activeKey="reservas"
+      variant="bottom"
+    />
+  }
+</main>

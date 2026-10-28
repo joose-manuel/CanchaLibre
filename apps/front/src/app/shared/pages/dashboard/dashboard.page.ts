@@ -1,17 +1,19 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppMenuComponent } from '../../components/app-menu/app-menu.component';
 import { DashboardHeaderComponent } from '../../components/dashboard-header/dashboard-header.component';
 import { FilterChipsComponent } from '../../components/filter-chips/filter-chips.component';
 import { MatchCardComponent } from '../../components/match-card/match-card.component';
+import { MatchDetailComponent } from '../../components/match-detail/match-detail.component';
 import { PromoBannerComponent } from '../../components/promo-banner/promo-banner.component';
 import { SearchFieldComponent } from '../../components/search-field/search-field.component';
 import { SectionHeaderComponent } from '../../components/section-header/section-header.component';
 import { FilterOption } from '../../interfaces/filter-option.interface';
+import { MatchSummary } from '../../interfaces/match-summary.interface';
 import { MenuItem } from '../../interfaces/menu-item.interface';
-import { UserHeader } from '../../interfaces/user-header.interface';
-import { MatchesService } from '../../services/matches.service';
+import { MAIN_NAV_ITEMS } from '../../constants/nav-items';
+import { MatchesService } from './services/matches.service';
 import { MediaQueryService } from '../../services/media-query.service';
-import { UserService } from '../../services/user.service';
 
 const ALL_SPORTS = 'todos';
 
@@ -22,6 +24,7 @@ const ALL_SPORTS = 'todos';
     DashboardHeaderComponent,
     FilterChipsComponent,
     MatchCardComponent,
+    MatchDetailComponent,
     PromoBannerComponent,
     SearchFieldComponent,
     SectionHeaderComponent,
@@ -33,18 +36,7 @@ const ALL_SPORTS = 'todos';
 export class DashboardPage {
   private readonly matchesService = inject(MatchesService);
   private readonly mediaQuery = inject(MediaQueryService);
-  private readonly userService = inject(UserService);
-
-  protected readonly user = computed<UserHeader>(() => {
-    const profile = this.userService.getCurrentUser();
-    return {
-      eyebrow: 'Bienvenido',
-      firstName: profile.firstName,
-      avatarSrc: profile.avatarSrc,
-      online: profile.online,
-      emoji: ' 👋',
-    };
-  });
+  private readonly router = inject(Router);
 
   protected readonly sportFilters: FilterOption[] = [
     { value: ALL_SPORTS, label: 'Todos' },
@@ -53,16 +45,13 @@ export class DashboardPage {
     { value: 'basket', label: 'Basket' },
   ];
 
-  protected readonly navItems: MenuItem[] = [
-    { key: 'inicio', label: 'Inicio', icon: 'pi pi-home' },
-    { key: 'reservas', label: 'Reservas', icon: 'pi pi-calendar' },
-    { key: 'mensajes', label: 'Mensajes', icon: 'pi pi-comments', badge: 3 },
-    { key: 'perfil', label: 'Perfil', icon: 'pi pi-user' },
-  ];
+  protected readonly navItems: MenuItem[] = MAIN_NAV_ITEMS;
 
   protected readonly activeSport = signal(ALL_SPORTS);
   protected readonly searchTerm = signal('');
   protected readonly activeNav = signal('inicio');
+  protected readonly selectedMatch = signal<MatchSummary | null>(null);
+  protected readonly detailClosing = signal(false);
 
   protected readonly isDesktop = this.mediaQuery.isDesktop;
   protected readonly menuVariant = computed(() =>
@@ -80,4 +69,31 @@ export class DashboardPage {
       return sportMatches && textMatches;
     });
   });
+
+  protected openMatchDetail(match: MatchSummary): void {
+    this.detailClosing.set(false);
+    this.selectedMatch.set(match);
+  }
+
+  /** El avatar del header lleva a la página de perfil. */
+  protected goToProfile(): void {
+    void this.router.navigateByUrl('/perfil');
+  }
+
+  /** El FAB "Crear" abre el asistente de creación de partido. */
+  protected goToCreateMatch(): void {
+    void this.router.navigateByUrl('/crear-partido');
+  }
+
+  protected closeMatchDetail(): void {
+    if (this.detailClosing()) {
+      return;
+    }
+
+    this.detailClosing.set(true);
+    setTimeout(() => {
+      this.selectedMatch.set(null);
+      this.detailClosing.set(false);
+    }, 220);
+  }
 }

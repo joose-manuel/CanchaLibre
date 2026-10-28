@@ -1,0 +1,238 @@
+<main class="create">
+  @if (step() < 4) {
+    <cl-step-header
+      [title]="step() === 3 ? 'Resumen del Partido' : 'Crear Partido'"
+      [step]="step()"
+      [totalSteps]="totalSteps"
+      (back)="onBack()"
+    />
+  } @else {
+    <cl-step-header
+      title="Pago Exitoso"
+      [step]="step()"
+      [totalSteps]="totalSteps"
+      [backVisible]="false"
+      [titleVisible]="false"
+    />
+  }
+
+  <!-- ================= PASO 1: Elegir cancha ================= -->
+  @if (step() === 1) {
+    <section class="create__content">
+      <div class="create__intro">
+        <h2 class="create__title">Selecciona una cancha</h2>
+        <p class="create__hint">{{ searchHint }}</p>
+      </div>
+
+      <cl-search-field
+        placeholder="Buscar por nombre o barrio..."
+        (valueChange)="onSearch($event)"
+      />
+
+      <div class="create__courts">
+        @for (item of visibleCourts(); track item.id) {
+          <cl-court-option
+            [court]="item"
+            [selected]="court()?.id === item.id"
+            (selectedChange)="onCourtSelected($event)"
+          />
+        } @empty {
+          <p class="create__empty">No encontramos canchas con ese nombre.</p>
+        }
+      </div>
+    </section>
+
+    <button type="button" class="create__map" aria-label="Ver mapa de canchas">
+      <i class="pi pi-map" aria-hidden="true"></i>
+    </button>
+
+    <footer class="create__footer">
+      <div class="create__selection">
+        <span class="create__selection-label">Seleccionado</span>
+        <strong class="create__selection-value">
+          {{ court()?.name ?? 'Ninguna cancha' }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="create__next"
+        [disabled]="!court()"
+        (click)="onNext()"
+      >
+        Siguiente
+        <i class="pi pi-arrow-right" aria-hidden="true"></i>
+      </button>
+    </footer>
+  }
+
+  <!-- ================= PASO 2: Configuración ================= -->
+  @if (step() === 2) {
+    <section class="create__content">
+      @if (court(); as selected) {
+        <cl-venue-summary [court]="selected" />
+      }
+
+      <section class="create__section">
+        <h3 class="create__section-title">Schedule</h3>
+
+        <label class="create__field">
+          <span class="create__field-label">Fecha</span>
+          <span class="create__field-control">
+            <i class="pi pi-calendar" aria-hidden="true"></i>
+            <input
+              type="date"
+              class="create__date"
+              [value]="matchDate()"
+              (change)="onDateChange($event)"
+            />
+          </span>
+        </label>
+
+        <p class="create__field-label">Available Time Slots</p>
+        <cl-time-slots
+          [slots]="slots()"
+          [selected]="selectedSlot()"
+          (selectedChange)="onSlotSelected($event)"
+        />
+      </section>
+
+      <section class="create__section">
+        <h3 class="create__section-title">Match Format</h3>
+
+        <div class="create__formats">
+          @for (format of formats; track format.value) {
+            <cl-format-option
+              [format]="format"
+              [selected]="selectedFormat().value === format.value"
+              (selectedChange)="onFormatSelected($event)"
+            />
+          }
+        </div>
+      </section>
+
+      <section class="create__section">
+        <div class="create__section-head">
+          <h3 class="create__section-title">Total Capacity</h3>
+          @if (selectedFormat().capacity) {
+            <span class="create__badge">{{ selectedFormat().capacity }} Recommended</span>
+          }
+        </div>
+
+        <cl-capacity-stepper
+          [value]="capacity()"
+          [min]="2"
+          [max]="court()?.capacity ?? 22"
+          [recommended]="selectedFormat().capacity"
+          (valueChange)="onCapacityChange($event)"
+        />
+      </section>
+
+      <cl-price-panel
+        [lines]="priceLines()"
+        [caption]="pricePanelCaption()"
+        [total]="pricePerPlayerLabel()"
+        actionLabel="Continuar a Invitados"
+        (action)="onNext()"
+      />
+    </section>
+  }
+
+  <!-- ================= PASO 3: Resumen ================= -->
+  @if (step() === 3) {
+    <section class="create__content">
+      @if (court(); as selected) {
+        <cl-match-hero [court]="selected" />
+      }
+
+      <cl-info-row
+        icon="pi pi-calendar"
+        title="FECHA Y HORA"
+        [subtitle]="dateLabel() + ' · ' + timeLabel()"
+      />
+
+      <cl-payment-breakdown
+        [lines]="breakdownLines()"
+        totalLabel="Total a Pagar Hoy"
+        [total]="pricePerPlayerLabel()"
+      />
+
+      <section class="create__policy">
+        <h3 class="create__policy-title">
+          <i class="pi pi-info-circle" aria-hidden="true"></i>
+          Políticas de cancelación
+        </h3>
+        <p class="create__policy-text">{{ cancellationPolicy }}</p>
+      </section>
+
+      <div class="create__actions">
+        <button
+          type="button"
+          class="create__primary"
+          [disabled]="pending()"
+          (click)="onNext()"
+        >
+          {{ createAndPayLabel }}
+          <i class="pi pi-arrow-right" aria-hidden="true"></i>
+        </button>
+
+        <button
+          type="button"
+          class="create__secondary"
+          [disabled]="pending()"
+          (click)="create(false)"
+        >
+          {{ createOnlyLabel }}
+        </button>
+      </div>
+    </section>
+  }
+
+  <!-- ================= PASO 4: Confirmación ================= -->
+  @if (step() === 4) {
+    <section class="create__content create__content--center">
+      <div class="create__success">
+        <span class="create__success-icon" aria-hidden="true">
+          <i class="pi pi-check"></i>
+        </span>
+        <h2 class="create__success-title">Pago Exitoso</h2>
+        <p class="create__success-hint">Tu reserva está confirmada</p>
+      </div>
+
+      <article class="create__qr">
+        <span class="create__qr-frame">
+          <cl-qr-code [payload]="qrPayload()" />
+        </span>
+
+        <p class="create__qr-text">Escanea este QR en la entrada de la cancha</p>
+
+        <span class="create__qr-offline">
+          <i class="pi pi-wifi" aria-hidden="true"></i>
+          Available Offline
+        </span>
+      </article>
+
+      @if (court(); as selected) {
+        <cl-booking-ticket
+          [court]="selected"
+          [dateLabel]="dateLabel()"
+          [timeLabel]="timeLabel()"
+          [formatLabel]="selectedFormat().label"
+          [totalLabel]="rentalTotalLabel()"
+          [depositLabel]="depositAmountLabel()"
+          [remainingLabel]="remainingLabel()"
+          [depositPercent]="depositPercent"
+        />
+      }
+
+      <p class="create__note">
+        <i class="pi pi-info-circle" aria-hidden="true"></i>
+        Please arrive 15 minutes before your time slot.
+      </p>
+
+      <button type="button" class="create__primary" (click)="onFinish()">
+        Volver al Detalle del Partido
+      </button>
+    </section>
+  }
+</main>

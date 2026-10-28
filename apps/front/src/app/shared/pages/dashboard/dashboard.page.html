@@ -7,12 +7,13 @@
       [activeKey]="activeNav()"
       variant="sidebar"
       (navigate)="activeNav.set($event)"
+      (create)="goToCreateMatch()"
     />
   }
 
   <div class="dashboard__body">
     <section class="dashboard__top">
-      <cl-dashboard-header [user]="user()" />
+      <cl-dashboard-header (avatarPressed)="goToProfile()" />
 
       <cl-search-field
         placeholder="Buscar canchas o partidos..."
@@ -31,7 +32,11 @@
 
       <div class="dashboard__grid">
         @for (match of matches(); track match.id) {
-          <cl-match-card [match]="match" />
+          <cl-match-card
+            [match]="match"
+            [ctaLabel]="'Unirse al partido'"
+            (join)="openMatchDetail($event)"
+          />
         } @empty {
           <p class="dashboard__empty">No hay partidos para este filtro.</p>
         }
@@ -51,6 +56,15 @@
       [activeKey]="activeNav()"
       variant="bottom"
       (navigate)="activeNav.set($event)"
+      (create)="goToCreateMatch()"
+    />
+  }
+
+  @if (selectedMatch(); as match) {
+    <cl-match-detail
+      [match]="match"
+      [closing]="detailClosing()"
+      (closed)="closeMatchDetail()"
     />
   }
 </main>

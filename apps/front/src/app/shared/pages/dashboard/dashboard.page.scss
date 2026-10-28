@@ -1,7 +1,9 @@
+@use '../../../../theme/surface' as surface;
+
 :host {
   display: block;
   min-height: 100dvh;
-  background: #f6f6f6;
+  background: var(--cl-color-background);
 }
 
 .dashboard {
@@ -17,25 +19,27 @@
 }
 
 .dashboard__top {
+  @include surface.cl-surface-float(0);
+
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 28px 24px 22px;
-  background: #ffffff;
-  border-bottom: 1px solid #eceef2;
+  gap: 12px;
+  padding: 18px 14px 14px;
+  border-width: 0 0 1px;
+  border-radius: 0 0 20px 20px;
 }
 
 .dashboard__content {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 24px 24px 0;
+  gap: 14px;
+  padding: 18px 16px 0;
 }
 
 .dashboard__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
+  gap: 16px;
 }
 
 .dashboard__empty {
@@ -44,20 +48,31 @@
   padding: 24px 0;
   text-align: center;
   font-size: 15px;
-  color: #6b7280;
+  color: var(--cl-color-text-secondary);
 }
 
-/* Menú inferior en móvil: queda fijo sobre el contenido. */
-:host ::ng-deep .dashboard__menu--bottom {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: calc(16px + env(safe-area-inset-bottom));
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
+/* Escalonado de entrada de las cards. */
+.dashboard__grid ::ng-deep cl-match-card:nth-child(1) .match {
+  animation-delay: 0.04s;
 }
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(2) .match {
+  animation-delay: 0.12s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(3) .match {
+  animation-delay: 0.2s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(4) .match {
+  animation-delay: 0.28s;
+}
+
+.dashboard__grid ::ng-deep cl-match-card:nth-child(n + 5) .match {
+  animation-delay: 0.34s;
+}
+
+/* El menú inferior se posiciona dentro del componente `cl-app-menu`. */
 
 @media (min-width: 960px) {
   .dashboard__body {

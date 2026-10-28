@@ -8,10 +8,14 @@
     </h1>
   </div>
 
-  <button type="button" class="header__avatar" (click)="avatarPressed.emit()" aria-label="Abrir perfil">
-    <img [src]="user().avatarSrc" alt="" />
-    @if (user().online) {
-      <span class="header__status" aria-hidden="true"></span>
-    }
-  </button>
+  <div class="header__actions">
+    <cl-theme-toggle />
+
+    <button type="button" class="header__avatar" (click)="avatarPressed.emit()" aria-label="Abrir perfil">
+      <img [src]="user().avatarSrc" alt="" />
+      @if (user().online) {
+        <span class="header__status" aria-hidden="true"></span>
+      }
+    </button>
+  </div>
 </header>

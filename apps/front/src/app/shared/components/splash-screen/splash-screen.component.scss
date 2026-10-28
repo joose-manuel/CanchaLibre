@@ -78,7 +78,7 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--cl-color-text-secondary);
   opacity: 0;
   animation: splash-fade-up 0.8s ease-out 1.2s forwards;
 }
@@ -100,7 +100,7 @@
 .splash__progress {
   width: min(240px, 60vw);
   --p-progressbar-height: 6px;
-  --p-progressbar-background: #e2e8f0;
+  --p-progressbar-background: var(--cl-color-surface-muted);
   --p-progressbar-value-background: var(--cl-color-primary, #137fec);
   --p-progressbar-border-radius: 999px;
 }
@@ -110,13 +110,13 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: #94a3b8;
+  color: var(--cl-color-text-muted);
 }
 
 .splash__version {
   margin: 0;
   font-size: 0.7rem;
-  color: #cbd5e1;
+  color: var(--cl-color-text-subtle);
 }
 
 @keyframes splash-ripple {

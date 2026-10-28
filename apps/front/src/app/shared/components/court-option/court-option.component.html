@@ -1,0 +1,40 @@
+<button
+  type="button"
+  class="court"
+  [class.court--selected]="selected()"
+  [attr.aria-pressed]="selected()"
+  (click)="selectedChange.emit(court())"
+>
+  <span class="court__media">
+    <img [src]="court().imageSrc" [alt]="court().name" />
+  </span>
+
+  <span class="court__body">
+    <span class="court__title">{{ court().name }}</span>
+
+    <span class="court__address">
+      <i class="pi pi-map-marker" aria-hidden="true"></i>
+      {{ court().address }}, {{ court().city }}
+    </span>
+
+    <span class="court__foot">
+      <span class="court__sports">
+        @for (sport of court().sports; track sport.key) {
+          <span class="court__sport" [attr.title]="sport.label">
+            <cl-sport-icon [sport]="sport.key" [size]="14" />
+          </span>
+        }
+      </span>
+    </span>
+  </span>
+
+  <span class="court__right">
+    @if (selected()) {
+      <span class="court__check" aria-hidden="true">
+        <i class="pi pi-check"></i>
+      </span>
+    } @else if (court().distanceLabel) {
+      <span class="court__distance">{{ court().distanceLabel }}</span>
+    }
+  </span>
+</button>
