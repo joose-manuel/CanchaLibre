@@ -11,6 +11,7 @@ import { MenuItem } from '../../interfaces/menu-item.interface';
 import { UserHeader } from '../../interfaces/user-header.interface';
 import { MatchesService } from '../../services/matches.service';
 import { MediaQueryService } from '../../services/media-query.service';
+import { UserService } from '../../services/user.service';
 
 const ALL_SPORTS = 'todos';
 
@@ -32,14 +33,18 @@ const ALL_SPORTS = 'todos';
 export class DashboardPage {
   private readonly matchesService = inject(MatchesService);
   private readonly mediaQuery = inject(MediaQueryService);
+  private readonly userService = inject(UserService);
 
-  protected readonly user: UserHeader = {
-    eyebrow: 'Bienvenido',
-    firstName: 'Carlos',
-    avatarSrc: 'images/avatar-carlos.png',
-    online: true,
-    emoji: ' 👋',
-  };
+  protected readonly user = computed<UserHeader>(() => {
+    const profile = this.userService.getCurrentUser();
+    return {
+      eyebrow: 'Bienvenido',
+      firstName: profile.firstName,
+      avatarSrc: profile.avatarSrc,
+      online: profile.online,
+      emoji: ' 👋',
+    };
+  });
 
   protected readonly sportFilters: FilterOption[] = [
     { value: ALL_SPORTS, label: 'Todos' },
