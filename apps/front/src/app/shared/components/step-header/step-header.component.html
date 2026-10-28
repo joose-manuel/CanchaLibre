@@ -1,0 +1,35 @@
+<header class="step-header">
+  @if (titleVisible()) {
+    <div class="step-header__row">
+      @if (backVisible()) {
+        <button
+          type="button"
+          class="step-header__back"
+          aria-label="Volver"
+          (click)="back.emit()"
+        >
+          <i class="pi pi-arrow-left" aria-hidden="true"></i>
+        </button>
+      } @else {
+        <span class="step-header__back" aria-hidden="true"></span>
+      }
+
+      <div class="step-header__text">
+        <h1 class="step-header__title">{{ title() }}</h1>
+        <p class="step-header__step">{{ stepLabel() }}</p>
+      </div>
+
+      <span class="step-header__spacer" aria-hidden="true"></span>
+    </div>
+  }
+
+  <div
+    class="step-header__progress"
+    role="progressbar"
+    [attr.aria-valuenow]="progress()"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <span [style.width.%]="progress()"></span>
+  </div>
+</header>

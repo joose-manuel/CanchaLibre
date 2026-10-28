@@ -1,0 +1,47 @@
+:host {
+  display: inline-block;
+  line-height: 0;
+}
+
+.ball {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: 50% 50%;
+}
+
+.ball__shape {
+  fill: var(--cl-ball-color, #ffffff);
+}
+
+.ball--spin {
+  animation: cl-ball-spin 1.4s linear infinite;
+}
+
+.ball--bounce {
+  animation: cl-ball-bounce 0.7s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+@keyframes cl-ball-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cl-ball-bounce {
+  from {
+    transform: translateY(0) scale(1, 1);
+  }
+
+  to {
+    transform: translateY(-14%) scale(0.96, 1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ball--spin,
+  .ball--bounce {
+    animation: none;
+  }
+}

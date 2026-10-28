@@ -1,0 +1,88 @@
+@if (variant() === 'sidebar') {
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <cl-brand-logo [size]="38" [wordmark]="false" />
+      <span class="sidebar__brand-name">{{ brandName() }}</span>
+    </div>
+
+    @if (showCreate()) {
+      <button type="button" class="sidebar__create" (click)="create.emit()">
+        <i class="pi pi-plus" aria-hidden="true"></i>
+        <span>{{ createLabel() }}</span>
+      </button>
+    }
+
+    <nav class="sidebar__list" aria-label="Navegación principal">
+      @for (item of items(); track item.key) {
+        <button
+          type="button"
+          class="sidebar__item"
+          [class.sidebar__item--active]="item.key === activeKey()"
+          [attr.aria-current]="item.key === activeKey() ? 'page' : null"
+          [disabled]="item.disabled"
+          (click)="onNavigate(item)"
+        >
+          <i [class]="item.icon" aria-hidden="true"></i>
+          <span>{{ item.label }}</span>
+          @if (item.badge) {
+            <span class="sidebar__badge">{{ item.badge }}</span>
+          }
+        </button>
+      }
+    </nav>
+  </aside>
+} @else {
+  <nav class="nav" aria-label="Navegación principal">
+    <div class="nav__bar">
+      @if (indicator().visible) {
+        <span
+          class="nav__indicator"
+          aria-hidden="true"
+          [style.transform]="
+            'translate(' + indicator().x + 'px, ' + indicator().y + 'px)'
+          "
+          [style.width.px]="indicator().width"
+          [style.height.px]="indicator().height"
+        ></span>
+      }
+
+      @for (item of leftItems(); track item.key) {
+        <button
+          #navItem
+          type="button"
+          class="nav__item"
+          [class.nav__item--active]="item.key === activeKey()"
+          [attr.aria-current]="item.key === activeKey() ? 'page' : null"
+          (click)="onNavigate(item)"
+        >
+          <i #navIcon [class]="item.icon" aria-hidden="true"></i>
+          <span>{{ item.label }}</span>
+        </button>
+      }
+
+      @if (showCreate()) {
+        <span class="nav__spacer" aria-hidden="true"></span>
+      }
+
+      @for (item of rightItems(); track item.key) {
+        <button
+          #navItem
+          type="button"
+          class="nav__item"
+          [class.nav__item--active]="item.key === activeKey()"
+          [attr.aria-current]="item.key === activeKey() ? 'page' : null"
+          (click)="onNavigate(item)"
+        >
+          <i #navIcon [class]="item.icon" aria-hidden="true"></i>
+          <span>{{ item.label }}</span>
+        </button>
+      }
+    </div>
+
+    @if (showCreate()) {
+      <button type="button" class="nav__fab" aria-label="Crear partido" (click)="create.emit()">
+        <i class="pi pi-plus" aria-hidden="true"></i>
+      </button>
+    }
+  </nav>
+}

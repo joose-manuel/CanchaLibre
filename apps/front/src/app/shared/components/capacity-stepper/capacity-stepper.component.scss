@@ -1,0 +1,88 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.stepper {
+  @include surface.cl-surface(16px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+}
+
+.stepper__button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 8px 18px -14px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.16s ease-out,
+    opacity 0.24s ease,
+    box-shadow 0.24s ease;
+}
+
+.stepper__button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+}
+
+.stepper__button:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.stepper__button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.stepper__value {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.stepper__number {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cl-color-text);
+}
+
+.stepper__label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cl-color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper__button {
+    transition: opacity 0.2s ease;
+  }
+
+  .stepper__button:hover:not(:disabled),
+  .stepper__button:active:not(:disabled) {
+    transform: none;
+  }
+}

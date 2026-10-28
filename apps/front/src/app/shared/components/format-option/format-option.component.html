@@ -1,0 +1,14 @@
+<button
+  type="button"
+  class="format"
+  [class.format--selected]="selected()"
+  [attr.aria-pressed]="selected()"
+  (click)="selectedChange.emit(format())"
+>
+  <span class="format__icon" aria-hidden="true">
+    <i class="pi pi-users"></i>
+  </span>
+
+  <span class="format__label">{{ format().label }}</span>
+  <span class="format__players">{{ format().playersLabel }}</span>
+</button>

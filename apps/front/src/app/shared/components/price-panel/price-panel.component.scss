@@ -1,0 +1,111 @@
+:host {
+  display: block;
+}
+
+/*
+ * Bloque oscuro: el precio es el dato que el usuario viene a ver. El
+ * contraste invertido lo destaca sin necesidad de más color, y el botón
+ * claro dentro del bloque oscuro conserva el foco en la acción.
+ */
+.price {
+  padding: 18px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #101a2c 0%, #0b1322 100%);
+  color: #f1f5f9;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 34px -18px rgba(0, 0, 0, 0.7);
+}
+
+.price__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease,
+    filter 0.24s ease;
+}
+
+.price__action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 30px -14px var(--cl-color-primary-soft-strong);
+}
+
+.price__action:active {
+  transform: scale(0.98);
+}
+
+.price__caption {
+  margin: 18px 0 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.6);
+}
+
+.price__total {
+  margin: 0 0 16px;
+  text-align: center;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.price__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.price__line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.price__line-label {
+  color: rgba(241, 245, 249, 0.66);
+}
+
+.price__line-value {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .price__action {
+    transition: opacity 0.2s ease;
+  }
+
+  .price__action:hover,
+  .price__action:active {
+    transform: none;
+  }
+}

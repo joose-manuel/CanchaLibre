@@ -1,10 +1,197 @@
+// -----------------------------------------------------------------------------
+// Tokens de CanchaLibre.
+//
+// Cada token tiene un valor para el tema claro y otro para el oscuro. El
+// cambio de tema lo dispara la clase `dark-mode` en `<html>` (ver
+// `ThemeService`), de modo que todo el sistema visual se commuta de una vez.
+//
+// Regla de diseño: en modo oscuro no hay superficies puras niTexts blancos
+// absolutos. El blanco siempre es relativo al fondo, para que nada "queme"
+// ni pierda contraste.
+// -----------------------------------------------------------------------------
+
+@mixin cl-light-tokens {
+  color-scheme: light;
+
+  /* ---------- Marca ---------- */
+  --cl-color-primary: #137fec;
+  --cl-color-primary-hover: #0f6fd4;
+  --cl-color-primary-active: #0c5cb8;
+  --cl-color-primary-contrast: #ffffff;
+  --cl-color-primary-soft: #eaf3fe;
+  --cl-color-primary-soft-strong: #dbeafe;
+
+  /* ---------- Superficies ---------- */
+  --cl-color-background: #f3f5f8;
+  --cl-color-surface: #ffffff;
+  --cl-color-surface-raised: #ffffff;
+  --cl-color-surface-sunken: #f5f7fb;
+  --cl-color-surface-muted: #f4f7fb;
+  --cl-color-surface-inverse: #111827;
+
+  /* ---------- Texto ---------- */
+  --cl-color-text: #111827;
+  --cl-color-text-secondary: #4b5563;
+  --cl-color-text-muted: #94a3b8;
+  --cl-color-text-subtle: #cbd5e1;
+  --cl-color-text-inverse: #ffffff;
+
+  /* ---------- Bordes ---------- */
+  --cl-border-hairline: rgba(15, 23, 42, 0.08);
+  --cl-border-hairline-strong: rgba(15, 23, 42, 0.12);
+  --cl-border-subtle: #f1f4f9;
+
+  /* ---------- Estado ---------- */
+  --cl-color-success: #16a34a;
+  --cl-color-success-soft: #e8f8ee;
+  --cl-color-warning: #d97706;
+  --cl-color-warning-soft: #fdf3e3;
+  --cl-color-danger: #dc2626;
+  --cl-color-danger-soft: #fdecec;
+  --cl-color-info-soft: #e8f2ff;
+
+  /* ---------- Blanco perlado ---------- */
+  --cl-surface-pearl: #fdfefe;
+  --cl-surface-pearl-top: #ffffff;
+  --cl-surface-pearl-bottom: #f7f9fc;
+
+  /* ---------- Highlights ---------- */
+  --cl-highlight-inset: rgba(255, 255, 255, 0.9);
+  --cl-highlight-inset-strong: rgba(255, 255, 255, 0.95);
+  --cl-highlight-top: rgba(255, 255, 255, 0.9);
+
+  /* ---------- Sombras ---------- */
+  --cl-shadow-card:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px -14px rgba(15, 23, 42, 0.28);
+  --cl-shadow-float:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 12px 32px -16px rgba(15, 23, 42, 0.35);
+  --cl-shadow-primary:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 12px 22px -14px rgba(19, 127, 236, 0.95);
+  --cl-shadow-primary-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 16px 28px -14px rgba(19, 127, 236, 1);
+
+  /* ---------- Overlays ---------- */
+  --cl-overlay-scrim: rgba(17, 24, 39, 0.22);
+  --cl-overlay-scrim-strong: rgba(17, 24, 39, 0.55);
+  --cl-switch-track: #dbe3ee;
+  --cl-switch-thumb: #ffffff;
+
+  /* ---------- Deportes (badges) ---------- */
+  --cl-sport-futbol: #2f7d4f;
+  --cl-sport-padel: #1d4ed8;
+  --cl-sport-basket: #c2410c;
+  --cl-sport-padel-bg: rgba(255, 255, 255, 0.92);
+  --cl-sport-padel-border: rgba(29, 78, 216, 0.16);
+
+  /* ---------- Scrim sobre imágenes ---------- */
+  --cl-scrim-media: rgba(15, 23, 42, 0.72);
+  /* Texto sobre scrim oscuro: siempre claro, en ambos temas. */
+  --cl-color-on-scrim: #ffffff;
+}
+
+@mixin cl-dark-tokens {
+  color-scheme: dark;
+
+  /* ---------- Marca ---------- */
+  --cl-color-primary: #4ea3f5;
+  --cl-color-primary-hover: #6bb1f7;
+  --cl-color-primary-active: #8ac3f9;
+  --cl-color-primary-contrast: #06121f;
+  --cl-color-primary-soft: rgba(78, 163, 245, 0.16);
+  --cl-color-primary-soft-strong: rgba(78, 163, 245, 0.26);
+
+  /* ---------- Superficies ---------- */
+  --cl-color-background: #0b0f16;
+  --cl-color-surface: #151b26;
+  --cl-color-surface-raised: #1b2330;
+  --cl-color-surface-sunken: #11161f;
+  --cl-color-surface-muted: #1a222e;
+  --cl-color-surface-inverse: #f1f5f9;
+
+  /* ---------- Texto ---------- */
+  --cl-color-text: #e8edf5;
+  --cl-color-text-secondary: #a3aec0;
+  --cl-color-text-muted: #6b7889;
+  --cl-color-text-subtle: #47525f;
+  --cl-color-text-inverse: #0b0f16;
+
+  /* ---------- Bordes ---------- */
+  --cl-border-hairline: rgba(255, 255, 255, 0.08);
+  --cl-border-hairline-strong: rgba(255, 255, 255, 0.14);
+  --cl-border-subtle: rgba(255, 255, 255, 0.06);
+
+  /* ---------- Estado ---------- */
+  --cl-color-success: #4ade80;
+  --cl-color-success-soft: rgba(74, 222, 128, 0.14);
+  --cl-color-warning: #fbbf24;
+  --cl-color-warning-soft: rgba(251, 191, 36, 0.14);
+  --cl-color-danger: #f87171;
+  --cl-color-danger-soft: rgba(248, 113, 113, 0.14);
+  --cl-color-info-soft: rgba(78, 163, 245, 0.16);
+
+  /* ---------- Blanco perlado (invertido) ---------- */
+  --cl-surface-pearl: #1b2330;
+  --cl-surface-pearl-top: #222b3a;
+  --cl-surface-pearl-bottom: #161d29;
+
+  /* ---------- Highlights ---------- */
+  --cl-highlight-inset: rgba(255, 255, 255, 0.06);
+  --cl-highlight-inset-strong: rgba(255, 255, 255, 0.1);
+  --cl-highlight-top: rgba(255, 255, 255, 0.08);
+
+  /* ---------- Sombras ---------- */
+  --cl-shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 8px 24px -14px rgba(0, 0, 0, 0.7);
+  --cl-shadow-float:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 12px 32px -16px rgba(0, 0, 0, 0.8);
+  --cl-shadow-primary:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 22px -14px rgba(0, 0, 0, 0.8);
+  --cl-shadow-primary-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 16px 28px -14px rgba(0, 0, 0, 0.9);
+
+  /* ---------- Overlays ---------- */
+  --cl-overlay-scrim: rgba(0, 0, 0, 0.55);
+  --cl-overlay-scrim-strong: rgba(0, 0, 0, 0.72);
+  --cl-switch-track: #3a4553;
+  --cl-switch-thumb: #e8edf5;
+
+  /* ---------- Deportes (badges) ---------- */
+  --cl-sport-futbol: #4ade80;
+  --cl-sport-padel: #93c5fd;
+  --cl-sport-basket: #fb923c;
+  --cl-sport-padel-bg: rgba(21, 27, 38, 0.92);
+  --cl-sport-padel-border: rgba(147, 197, 253, 0.24);
+
+  /* ---------- Scrim sobre imágenes ---------- */
+  --cl-scrim-media: rgba(0, 0, 0, 0.62);
+  /* Texto sobre scrim oscuro: siempre claro, en ambos temas. */
+  --cl-color-on-scrim: #ffffff;
+}
+
 :root {
   /* Tokens base de CanchaLibre. Completar con el Figma antes de maquetar. */
-  --cl-color-primary: #0f9d58;
-  --cl-color-primary-contrast: #ffffff;
-  --cl-color-surface: #ffffff;
-  --cl-color-text: #1f2937;
+  --cl-font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cl-font-heading: 'Outfit Variable', 'Outfit', 'Inter Variable', system-ui, sans-serif;
   --cl-radius-sm: 8px;
   --cl-radius-md: 16px;
   --cl-radius-lg: 24px;
+
+  @include cl-light-tokens;
+}
+
+/*
+ * El tema oscuro se activa con la clase `dark-mode` en `<html>`.
+ * PrimeNG usa el mismo selector (`darkModeSelector`), así que ambos
+ * sistemas cambian a la vez.
+ */
+.dark-mode {
+  @include cl-dark-tokens;
 }

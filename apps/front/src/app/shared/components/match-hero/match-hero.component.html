@@ -1,0 +1,19 @@
+<article class="hero">
+  <img [src]="court().imageSrc" [alt]="court().name" />
+
+  <span class="hero__sport">
+    {{ court().sports[0]?.label ?? 'Fútbol' }}
+  </span>
+
+  <span class="hero__map" aria-hidden="true">
+    <i class="pi pi-map-marker"></i>
+  </span>
+
+  <span class="hero__body">
+    <span class="hero__title">{{ court().name }}</span>
+    <span class="hero__address">
+      <i class="pi pi-map-marker" aria-hidden="true"></i>
+      {{ court().address }}, {{ court().city }}
+    </span>
+  </span>
+</article>

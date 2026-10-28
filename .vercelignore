@@ -1,0 +1,24 @@
+# Cosas que no necesita Vercel para construir el front.
+.git
+.github
+.codebase-memory
+.agents
+.nx
+.angular
+dist
+tmp
+out-tsc
+build
+
+# Backends y mobile: el front es estatico, no los necesita.
+apps/api
+apps/movil
+
+# Documentacion y scripts de base de datos.
+docs
+docker-compose.yml
+
+# Configuracion local.
+.env
+.env.local
+.env.*.local

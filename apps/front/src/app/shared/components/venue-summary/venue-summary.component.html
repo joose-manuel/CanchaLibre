@@ -1,0 +1,14 @@
+<article class="venue">
+  <span class="venue__media">
+    <img [src]="court().imageSrc" [alt]="court().name" />
+  </span>
+
+  <span class="venue__body">
+    <span class="venue__title">
+      {{ court().spaceName }} &quot;{{ court().name }}&quot;
+    </span>
+    <span class="venue__address">
+      {{ court().address }}, {{ court().city }}
+    </span>
+  </span>
+</article>

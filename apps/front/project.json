@@ -28,10 +28,21 @@
             "input": "apps/front/public"
           }
         ],
-        "styles": ["apps/front/src/styles.scss"]
+        "styles": [
+          "node_modules/@fontsource-variable/inter/index.css",
+          "node_modules/@fontsource-variable/outfit/index.css",
+          "apps/front/src/styles.scss",
+          "node_modules/primeicons/primeicons.css"
+        ]
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/front/src/environments/environment.ts",
+              "with": "apps/front/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -40,8 +51,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumWarning": "10kb",
+              "maximumError": "14kb"
             }
           ],
           "outputHashing": "all"

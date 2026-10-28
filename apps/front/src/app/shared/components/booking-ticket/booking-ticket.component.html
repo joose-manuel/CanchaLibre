@@ -1,0 +1,40 @@
+<article class="ticket">
+  <header class="ticket__head">
+    <span class="ticket__media">
+      <img [src]="court().imageSrc" [alt]="court().name" />
+    </span>
+
+    <span class="ticket__title">
+      {{ court().name }}
+      <small>{{ court().address }}, {{ court().city }}</small>
+    </span>
+  </header>
+
+  <div class="ticket__grid">
+    <div class="ticket__cell">
+      <span class="ticket__label">DATE &amp; TIME</span>
+      <strong class="ticket__value">{{ dateLabel() }}</strong>
+      <strong class="ticket__value">{{ timeLabel() }}</strong>
+    </div>
+
+    <div class="ticket__cell">
+      <span class="ticket__label">FIELD</span>
+      <strong class="ticket__value">{{ court().spaceName }}</strong>
+      <strong class="ticket__value">{{ formatLabel() }}</strong>
+    </div>
+  </div>
+
+  <div class="ticket__price">
+    <span class="ticket__label">Total Booking Price</span>
+    <strong class="ticket__total">{{ totalLabel() }}</strong>
+
+    <span class="ticket__paid">
+      Paid Advance ({{ depositPercent() }}%)
+      <strong>{{ depositLabel() }}</strong>
+    </span>
+
+    <small class="ticket__remaining">
+      Remaining {{ remainingLabel() }} to be paid at venue
+    </small>
+  </div>
+</article>

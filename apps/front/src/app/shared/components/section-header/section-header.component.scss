@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cl-color-text);
+}
+
+.section__action {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cl-color-primary, #137fec);
+  cursor: pointer;
+}

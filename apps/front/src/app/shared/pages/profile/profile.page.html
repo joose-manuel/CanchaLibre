@@ -1,0 +1,70 @@
+<main class="profile">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="profile__menu profile__menu--sidebar"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="sidebar"
+    />
+  }
+
+  <div class="profile__body">
+    <header class="profile__top">
+      <div class="profile__top-text">
+        <p class="profile__eyebrow">Mi cuenta</p>
+        <h1 class="profile__title">Perfil</h1>
+      </div>
+
+      <div class="profile__top-actions">
+        <cl-theme-toggle />
+        <button type="button" class="profile__edit" aria-label="Editar perfil">
+          <i class="pi pi-pencil" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="profile__content">
+      <cl-profile-summary [user]="user()" />
+
+      <div class="profile__owner">
+        <button
+          type="button"
+          class="profile__owner-button"
+          [disabled]="ownerModePending()"
+          (click)="switchOwnerMode()"
+        >
+          <i class="pi pi-briefcase" aria-hidden="true"></i>
+          <span>{{ ownerButtonLabel() }}</span>
+        </button>
+        <p class="profile__owner-hint">{{ ownerButtonHint() }}</p>
+      </div>
+
+      <cl-section-header title="Historial de Partidos" actionLabel="Ver todo" />
+
+      <div class="profile__history">
+        @for (entry of history(); track entry.id) {
+          <cl-match-history-item [entry]="entry" />
+        } @empty {
+          <p class="profile__empty">Todavía no has disputado partidos.</p>
+        }
+      </div>
+
+      <cl-section-header title="Configuración" />
+
+      <cl-profile-settings
+        [sections]="settings()"
+        (toggleChange)="onToggleSetting($event)"
+        (action)="onSettingAction($event)"
+      />
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="profile__menu profile__menu--bottom"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="bottom"
+    />
+  }
+</main>

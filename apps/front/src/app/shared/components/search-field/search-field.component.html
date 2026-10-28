@@ -1,0 +1,10 @@
+<p-iconfield class="search">
+  <p-inputicon [styleClass]="icon()" />
+  <input
+    pInputText
+    type="search"
+    class="search__input"
+    [placeholder]="placeholder()"
+    (input)="onInput($event)"
+  />
+</p-iconfield>

@@ -1,0 +1,87 @@
+:host {
+  display: block;
+}
+
+.picker {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 6px;
+  scrollbar-width: none;
+}
+
+.picker::-webkit-scrollbar {
+  display: none;
+}
+
+.picker__day {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 54px;
+  height: 68px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: var(--cl-color-surface);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 18px -16px rgba(15, 23, 42, 0.45);
+  font-family: var(--cl-font-family);
+  cursor: pointer;
+  transition:
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.24s ease,
+    box-shadow 0.24s ease,
+    color 0.24s ease;
+}
+
+.picker__day:hover {
+  transform: translateY(-2px);
+}
+
+.picker__day:active {
+  transform: scale(0.96);
+}
+
+.picker__weekday {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cl-color-text-muted);
+  transition: color 0.24s ease;
+}
+
+.picker__number {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--cl-color-text);
+  letter-spacing: -0.02em;
+  transition: color 0.24s ease;
+}
+
+.picker__day--active {
+  background: linear-gradient(180deg, var(--cl-color-primary) 0%, var(--cl-color-primary-hover) 100%);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 10px 20px -12px var(--cl-color-primary-soft-strong);
+}
+
+.picker__day--active .picker__weekday {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.picker__day--active .picker__number {
+  color: var(--cl-color-primary-contrast);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .picker__day {
+    animation: none;
+    transition: opacity 0.2s ease;
+  }
+}

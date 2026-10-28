@@ -1,0 +1,141 @@
+// -----------------------------------------------------------------------------
+// Superficies "glass" estilo Apple.
+//
+// En interfaces con fondo blanco (o casi blanco) los contenedores claros se
+// pierden: el marco no se distingue de la superficie. Apple resuelve esto con
+// una combinación de tres capas:
+//
+//   1. borde hairline de 1px con opacidad muy baja,
+//   2. highlight interno (inset) que simula la luz sobre el borde superior,
+//   3. sombra difusa en varias capas, sin bordes duros.
+//
+// Estos mixins centralizan ese tratamiento para que todos los componentes
+// compartan la misma definición de "marco".
+//
+// Jerarquía de materiales (Apple, WWDC):
+//   - material pesado  -> regiones estructurales (sidebar, sheets)
+//   - material ligero  -> elementos interactivos (botones, chips)
+// Nunca se apila un material ligero sobre otro ligero: la legibilidad cae.
+//
+// Todos los valores vienen de tokens, de modo que el tema oscuro se aplica
+// sin reescribir los mixins.
+// -----------------------------------------------------------------------------
+
+/// Superficie estándar (cards, listas, chips).
+@mixin cl-surface($radius: 16px) {
+  border: 1px solid var(--cl-border-hairline);
+  background: var(--cl-color-surface);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    var(--cl-shadow-card);
+  border-radius: $radius;
+}
+
+/// Superficie elevada (barras estructurales, sheets, elementos flotantes).
+@mixin cl-surface-float($radius: 24px) {
+  border: 1px solid var(--cl-border-hairline-strong);
+  background: var(--cl-color-surface-raised);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    var(--cl-shadow-float);
+  border-radius: $radius;
+}
+
+/// Superficie perlada: blanco con matiz frío, para barras flotantes.
+///
+/// Es material opaco a propósito: la barra se superpone a contenido que
+/// se desplaza, así que cualquier translucidez dejaría pasar el texto y la
+/// barra se leería mal. El matiz perlado + el borde hairline + la sombra
+/// difusa son los que la separan del fondo.
+@mixin cl-surface-pearl($radius: 26px) {
+  border: 1px solid var(--cl-border-hairline-strong);
+  background: linear-gradient(
+    180deg,
+    var(--cl-surface-pearl-top) 0%,
+    var(--cl-surface-pearl-bottom) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 16px 36px -18px rgba(15, 23, 42, 0.4);
+  border-radius: $radius;
+}
+
+/// Superficie hundida (inputs, pistas de progreso).
+@mixin cl-surface-sunken($radius: 16px) {
+  background: var(--cl-color-surface-muted);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05);
+  border-radius: $radius;
+}
+
+/// Botón blanco: necesita marco propio para no perderse sobre fondo claro.
+@mixin cl-button-white($radius: 20px) {
+  border: 1px solid var(--cl-border-hairline-strong);
+  background: var(--cl-color-surface);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 6px 16px -12px rgba(15, 23, 42, 0.3);
+  border-radius: $radius;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease,
+    background 0.24s ease;
+}
+
+/// Botón de marca (azul). Respuesta inmediata al presionar.
+@mixin cl-button-primary($radius: 14px) {
+  border: 0;
+  border-radius: $radius;
+  background: var(--cl-color-primary);
+  box-shadow: var(--cl-shadow-primary);
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease,
+    filter 0.24s ease;
+}
+
+/// Icono circular de marca (fondo azul suave).
+@mixin cl-icon-badge($size: 32px) {
+  display: grid;
+  place-items: center;
+  width: $size;
+  height: $size;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 14px;
+}
+
+// -----------------------------------------------------------------------------
+// Preferencias de accesibilidad.
+// Apple's HIG pide tres respuestas independientes: menos movimiento, menos
+// transparencia y más contraste.
+// -----------------------------------------------------------------------------
+
+/// Sin movimiento: cross-fade corto en lugar de deslizamientos y resortes.
+@mixin cl-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: opacity 0.2s ease !important;
+    transform: none !important;
+  }
+}
+
+/// Sin transparencia: el material se vuelve sólido y frosty.
+@mixin cl-reduced-transparency {
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--cl-color-surface) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/// Más contraste: fondos casi sólidos con borde definido.
+@mixin cl-high-contrast {
+  @media (prefers-contrast: more) {
+    border-color: rgba(15, 23, 42, 0.5) !important;
+    box-shadow: none !important;
+  }
+}
