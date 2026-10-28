@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CanchaLibre</string>
+    <string name="title_activity_main">CanchaLibre</string>
+    <string name="package_name">co.canchalibre.app</string>
+    <string name="custom_url_scheme">co.canchalibre.app</string>
+</resources>

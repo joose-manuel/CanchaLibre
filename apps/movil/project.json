@@ -1,0 +1,127 @@
+{
+  "name": "movil",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "cl",
+  "sourceRoot": "apps/movil/src",
+  "tags": ["scope:movil", "type:app"],
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/movil/tsconfig.app.json --noEmit"
+      }
+    },
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/movil",
+        "browser": "apps/movil/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/movil/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/movil/public"
+          }
+        ],
+        "styles": ["apps/movil/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "800kb",
+              "maximumError": "1.5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "movil:build:production"
+        },
+        "development": {
+          "buildTarget": "movil:build:development"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "movil:build",
+        "port": 4201,
+        "staticFilePath": "dist/apps/movil/browser",
+        "spa": true
+      }
+    },
+    "sync": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npx cap sync android",
+        "cwd": "apps/movil"
+      }
+    },
+    "copy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npx cap copy android",
+        "cwd": "apps/movil"
+      }
+    },
+    "open": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx cap open android",
+        "cwd": "apps/movil"
+      }
+    },
+    "android": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["sync"],
+      "options": {
+        "command": "npx cap run android",
+        "cwd": "apps/movil"
+      }
+    },
+    "add:android": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx cap add android",
+        "cwd": "apps/movil"
+      }
+    }
+  }
+}

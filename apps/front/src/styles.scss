@@ -1,0 +1,8 @@
+/* Estilos globales del front web. */
+@use './theme/tokens';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
