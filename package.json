@@ -29,6 +29,7 @@
     "migration:revert": "typeorm-ts-node-commonjs -d apps/api/src/database/data-source.ts migration:revert"
   },
   "dependencies": {
+    "@angular/cdk": "21.2.14",
     "@angular/common": "21.2.25",
     "@angular/compiler": "21.2.25",
     "@angular/core": "21.2.25",
@@ -41,6 +42,8 @@
     "@capacitor/preferences": "8.0.1",
     "@capacitor/splash-screen": "8.0.2",
     "@capacitor/status-bar": "8.0.4",
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/outfit": "5.3.0",
     "@ionic/angular": "9.0.9",
     "@nestjs/common": "11.2.8",
     "@nestjs/config": "4.0.4",
@@ -50,6 +53,7 @@
     "@nestjs/platform-express": "11.2.8",
     "@nestjs/swagger": "11.4.7",
     "@nestjs/typeorm": "11.0.3",
+    "@primeuix/themes": "2.0.3",
     "bcryptjs": "3.0.3",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.4",
@@ -60,6 +64,8 @@
     "passport": "0.7.0",
     "passport-jwt": "4.0.1",
     "pg": "8.23.1",
+    "primeicons": "8.0.2",
+    "primeng": "21.1.10",
     "qrcode": "1.5.4",
     "reflect-metadata": "0.2.2",
     "rxjs": "7.8.2",

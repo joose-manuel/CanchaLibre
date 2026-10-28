@@ -1,0 +1,98 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #f6f6f6;
+}
+
+.dashboard {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.dashboard__body {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+.dashboard__top {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px 24px 22px;
+  background: #ffffff;
+  border-bottom: 1px solid #eceef2;
+}
+
+.dashboard__content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 24px 24px 0;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.dashboard__empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+/* Menú inferior en móvil: queda fijo sobre el contenido. */
+:host ::ng-deep .dashboard__menu--bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+@media (min-width: 960px) {
+  .dashboard__body {
+    padding-bottom: 0;
+  }
+
+  .dashboard__top {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px 32px;
+    padding: 24px 40px;
+  }
+
+  .dashboard__top cl-dashboard-header {
+    flex: 0 0 auto;
+  }
+
+  .dashboard__top cl-search-field {
+    flex: 1 1 300px;
+    min-width: 280px;
+    max-width: 480px;
+  }
+
+  .dashboard__top cl-filter-chips {
+    flex: 0 0 auto;
+  }
+
+  .dashboard__content {
+    padding: 32px 40px 48px;
+    max-width: 1180px;
+  }
+
+  .dashboard__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}

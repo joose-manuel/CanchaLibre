@@ -1,0 +1,11 @@
+{
+    "schema_version": 2,
+    "commit": "c5c4ec84ad76c030302adebbbb7d3e475b9e9279",
+    "indexed_at": "2026-10-28T17:40:22Z",
+    "project": "CanchaLibre",
+    "nodes": 1397,
+    "edges": 2878,
+    "original_size": 3801088,
+    "compressed_size": 541465,
+    "compression_level": 9
+}

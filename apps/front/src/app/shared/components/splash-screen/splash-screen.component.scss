@@ -1,0 +1,166 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+}
+
+.splash {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--cl-color-background, #f5f6f8);
+}
+
+.splash__glow {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(20, 128, 234, 0.16) 0%,
+    rgba(20, 128, 234, 0) 65%
+  );
+  pointer-events: none;
+}
+
+.splash__glow--top {
+  top: -30vmax;
+  right: -25vmax;
+}
+
+.splash__glow--bottom {
+  bottom: -35vmax;
+  left: -30vmax;
+}
+
+.splash__brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.splash__ripple {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 112px;
+  height: 112px;
+  margin-left: -56px;
+  border: 2px solid rgba(20, 128, 234, 0.35);
+  border-radius: 28px;
+  box-sizing: border-box;
+  opacity: 0;
+  pointer-events: none;
+  animation: splash-ripple 2.4s ease-out 0.9s infinite;
+}
+
+.splash__ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: inherit;
+  border-radius: inherit;
+  animation: splash-ripple 2.4s ease-out 2.1s infinite;
+}
+
+.splash__tagline {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #64748b;
+  opacity: 0;
+  animation: splash-fade-up 0.8s ease-out 1.2s forwards;
+}
+
+.splash__footer {
+  position: absolute;
+  bottom: calc(40px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: splash-fade-in 0.6s ease-out 0.4s forwards;
+}
+
+.splash__progress {
+  width: min(240px, 60vw);
+  --p-progressbar-height: 6px;
+  --p-progressbar-background: #e2e8f0;
+  --p-progressbar-value-background: var(--cl-color-primary, #137fec);
+  --p-progressbar-border-radius: 999px;
+}
+
+.splash__country {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #94a3b8;
+}
+
+.splash__version {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #cbd5e1;
+}
+
+@keyframes splash-ripple {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes splash-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    letter-spacing: 0.5em;
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+    letter-spacing: 0.24em;
+  }
+}
+
+@keyframes splash-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash__ripple,
+  .splash__ripple::after,
+  .splash__tagline,
+  .splash__footer {
+    animation: none;
+    opacity: 1;
+  }
+
+  .splash__ripple {
+    opacity: 0;
+  }
+}

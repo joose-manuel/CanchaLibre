@@ -1,0 +1,38 @@
+<article class="match">
+  @if (showMedia()) {
+    <div class="match__media">
+      <img [src]="match().imageSrc" [alt]="match().venue" />
+      <span class="match__sport">{{ match().sportLabel }}</span>
+      <span class="match__time">
+        <i [class]="clockIcon()" aria-hidden="true"></i>{{ match().startTime }}
+      </span>
+    </div>
+  }
+
+  <div class="match__body">
+    <h3 class="match__title">{{ match().venue }}</h3>
+    <p class="match__address">
+      <i [class]="locationIcon()" aria-hidden="true"></i>{{ match().address }}
+    </p>
+
+    @if (showAvailability()) {
+      <div class="match__availability">
+        <span>{{ availabilityLabel() }}</span>
+        <span class="match__count">
+          {{ match().joinedPlayers }}/{{ match().totalPlayers }} {{ playersLabel() }}
+        </span>
+      </div>
+      <p-progressbar [value]="fillPercent()" [showValue]="false" styleClass="match__progress" />
+    }
+
+    @if (showCta()) {
+      <p-button
+        [label]="ctaLabel()"
+        [severity]="ctaSeverity()"
+        [disabled]="ctaDisabled()"
+        styleClass="match__cta"
+        (onClick)="join.emit(match())"
+      />
+    }
+  </div>
+</article>

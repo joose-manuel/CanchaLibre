@@ -1,0 +1,111 @@
+:host {
+  display: block;
+}
+
+.match {
+  overflow: hidden;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px -18px rgba(15, 23, 42, 0.25);
+}
+
+.match__media {
+  position: relative;
+  height: 103px;
+}
+
+.match__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.match__sport,
+.match__time {
+  position: absolute;
+  top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.match__sport {
+  left: 12px;
+  background: rgba(17, 24, 39, 0.45);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.match__time {
+  right: 12px;
+  background: rgba(17, 24, 39, 0.7);
+}
+
+.match__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
+}
+
+.match__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: #0e152a;
+}
+
+.match__address {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.match__availability {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.match__count {
+  color: #9ca3af;
+}
+
+.match ::ng-deep .match__progress {
+  height: 6px;
+  background: #eef0f3;
+  border-radius: 999px;
+}
+
+.match ::ng-deep .match__progress .p-progressbar-value {
+  background: #6b7280;
+  border-radius: 999px;
+}
+
+.match ::ng-deep .match__cta {
+  width: 100%;
+  height: 44px;
+  margin-top: 6px;
+  justify-content: center;
+  border-radius: 14px;
+}
+
+.match ::ng-deep .match__cta button,
+.match ::ng-deep .match__cta.p-button {
+  width: 100%;
+  font-weight: 600;
+}

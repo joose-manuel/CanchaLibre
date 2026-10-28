@@ -1,0 +1,56 @@
+<main class="dashboard">
+  
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="dashboard__menu dashboard__menu--sidebar"
+      [items]="navItems"
+      [activeKey]="activeNav()"
+      variant="sidebar"
+      (navigate)="activeNav.set($event)"
+    />
+  }
+
+  <div class="dashboard__body">
+    <section class="dashboard__top">
+      <cl-dashboard-header [user]="user" />
+
+      <cl-search-field
+        placeholder="Buscar canchas o partidos..."
+        (valueChange)="searchTerm.set($event)"
+      />
+
+      <cl-filter-chips
+        [options]="sportFilters"
+        [selected]="activeSport()"
+        (selectedChange)="activeSport.set($event)"
+      />
+    </section>
+
+    <section class="dashboard__content">
+      <cl-section-header title="Partidos de hoy" actionLabel="Ver calendario" />
+
+      <div class="dashboard__grid">
+        @for (match of matches(); track match.id) {
+          <cl-match-card [match]="match" />
+        } @empty {
+          <p class="dashboard__empty">No hay partidos para este filtro.</p>
+        }
+      </div>
+
+      <cl-promo-banner
+        title="Torneo Relámpago Sabaneta"
+        subtitle="Inscripciones abiertas para la próxima semana."
+      />
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="dashboard__menu dashboard__menu--bottom"
+      [items]="navItems"
+      [activeKey]="activeNav()"
+      variant="bottom"
+      (navigate)="activeNav.set($event)"
+    />
+  }
+</main>

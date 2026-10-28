@@ -1,0 +1,6 @@
+<header class="section">
+  <h2 class="section__title">{{ title() }}</h2>
+  @if (actionLabel(); as label) {
+    <button type="button" class="section__action" (click)="action.emit()">{{ label }}</button>
+  }
+</header>

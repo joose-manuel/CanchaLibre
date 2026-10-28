@@ -1,0 +1,183 @@
+:host {
+  display: contents;
+}
+
+/* ---------- Barra inferior (móvil) ---------- */
+
+.nav {
+  position: relative;
+  width: min(380px, calc(100% - 32px));
+  pointer-events: auto;
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 14px 34px -12px rgba(15, 23, 42, 0.3);
+}
+
+.nav__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+  border: 0;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 11px;
+  font-weight: 500;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.nav__item i {
+  font-size: 19px;
+}
+
+.nav__item--active {
+  color: var(--cl-color-primary, #137fec);
+  font-weight: 700;
+}
+
+.nav__spacer {
+  flex: 0 0 72px;
+}
+
+.nav__fab {
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cl-color-primary, #137fec);
+  cursor: pointer;
+}
+
+.nav__fab i {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  background: var(--cl-color-primary, #137fec);
+  color: #ffffff;
+  font-size: 20px;
+  box-shadow: 0 12px 24px -8px rgba(19, 127, 236, 0.6);
+}
+
+.nav__fab-label {
+  margin-top: 30px;
+}
+
+/* ---------- Menú lateral (escritorio) ---------- */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 0 0 248px;
+  min-height: 100dvh;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-right: 1px solid #eceef2;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 12px;
+}
+
+.sidebar__brand-name {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: #0e152a;
+}
+
+.sidebar__create {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  margin-bottom: 8px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--cl-color-primary, #137fec);
+  color: #ffffff;
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar__item i {
+  font-size: 18px;
+}
+
+.sidebar__item--active {
+  background: #eaf3fe;
+  color: var(--cl-color-primary, #137fec);
+  font-weight: 700;
+}
+
+.sidebar__item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sidebar__badge {
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}

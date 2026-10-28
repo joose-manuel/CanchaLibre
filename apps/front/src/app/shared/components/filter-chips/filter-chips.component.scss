@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+.chips {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: 0 0 auto;
+  height: 38px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #f3f4f6;
+  font-family: var(--cl-font-family);
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+.chip--active {
+  background: #e5e7eb;
+  color: #111827;
+  font-weight: 700;
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--cl-color-primary, #137fec);
+  outline-offset: 2px;
+}

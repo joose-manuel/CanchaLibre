@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+
+.social {
+  width: 100%;
+  height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: 20px;
+  background: #f4f2f6;
+  color: #1a1a1c;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.social i {
+  font-size: 20px;
+}
+
+.social:focus-visible {
+  outline: 2px solid var(--cl-color-primary, #137fec);
+  outline-offset: 2px;
+}

@@ -1,0 +1,224 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #f9f9fd;
+}
+
+.login {
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: 61px 21px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__card {
+  width: min(356px, 100%);
+  box-sizing: border-box;
+  padding: 11px 32px 22px;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.18);
+}
+
+.login__header {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.login__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 36px;
+  color: #18181b;
+}
+
+.login__subtitle {
+  max-width: 260px;
+  margin: 12px auto 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #3f4655;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #3f4655;
+}
+
+.login__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.login__label-row .login__label {
+  margin-bottom: 0;
+}
+
+.login__link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #0a5fc7;
+  text-decoration: none;
+}
+
+.login__link--strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.login__control {
+  position: relative;
+  height: 50px;
+}
+
+.login__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  font-size: 22px;
+  color: #93a3b8;
+  pointer-events: none;
+}
+
+.login__input {
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  padding: 0 48px;
+  border: 0;
+  border-radius: 24px;
+  background: #ebebeb;
+  box-shadow: none;
+  font-family: var(--cl-font-family);
+  font-size: 16px;
+  color: #1a1a1c;
+}
+
+.login__input::placeholder {
+  color: #b6bfcc;
+  opacity: 1;
+}
+
+.login__input:focus {
+  box-shadow: 0 0 0 2px rgba(19, 127, 236, 0.35);
+}
+
+.login__eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #93a3b8;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.login__eye .pi {
+  font-size: 22px;
+}
+
+.login__submit {
+  --p-button-primary-background: linear-gradient(90deg, #035ec5 0%, #176ee3 100%);
+  --p-button-primary-border-color: transparent;
+  --p-button-primary-hover-background: linear-gradient(90deg, #0352ad 0%, #1262cc 100%);
+  --p-button-primary-hover-border-color: transparent;
+  --p-button-primary-active-background: #0352ad;
+  --p-button-primary-active-border-color: transparent;
+
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+}
+
+.login__submit ::ng-deep button {
+  width: 100%;
+  height: 56px;
+  border-radius: 28px;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  box-shadow: 0 12px 24px -10px rgba(3, 94, 197, 0.55);
+}
+
+.login__submit ::ng-deep .p-button-label {
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login__divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 38px 0 44px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #93a3b8;
+  white-space: nowrap;
+}
+
+.login__divider::before,
+.login__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e6edf5;
+}
+
+.login__social {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.login__register {
+  margin: 40px 0 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 20px;
+  color: #3f4655;
+}
+
+.login__terms {
+  width: min(310px, 100%);
+  margin: 50px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+  color: #93a3b8;
+}
+
+.login__terms a {
+  color: #93a3b8;
+  text-decoration: underline;
+}
