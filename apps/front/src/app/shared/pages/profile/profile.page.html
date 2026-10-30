@@ -2,7 +2,7 @@
   @if (isDesktop()) {
     <cl-app-menu
       class="profile__menu profile__menu--sidebar"
-      [items]="navItems"
+      [items]="navItems()"
       activeKey="perfil"
       variant="sidebar"
     />
@@ -39,6 +39,19 @@
         <p class="profile__owner-hint">{{ ownerButtonHint() }}</p>
       </div>
 
+      <button type="button" class="profile__venue" (click)="onRegisterVenue()">
+        <span class="profile__venue-icon" aria-hidden="true">
+          <i class="pi pi-building"></i>
+        </span>
+        <span class="profile__venue-body">
+          <span class="profile__venue-title">Registrar cancha</span>
+          <span class="profile__venue-hint">
+            Administra tus canchas, espacios y reservas
+          </span>
+        </span>
+        <i class="pi pi-chevron-right profile__venue-arrow" aria-hidden="true"></i>
+      </button>
+
       <cl-section-header title="Historial de Partidos" actionLabel="Ver todo" />
 
       <div class="profile__history">
@@ -62,9 +75,22 @@
   @if (!isDesktop()) {
     <cl-app-menu
       class="profile__menu profile__menu--bottom"
-      [items]="navItems"
+      [items]="navItems()"
       activeKey="perfil"
       variant="bottom"
     />
   }
 </main>
+
+@if (venueDialogOpen()) {
+  <cl-confirm-dialog
+    title="¿Administras una cancha?"
+    message="Esta sesión es exclusiva para propietarios o gestores de complejos deportivos. Podrás gestionar reservas y ver tus ingresos."
+    icon="pi pi-check"
+    primaryLabel="Sí, continuar"
+    secondaryLabel="Aún no"
+    [closing]="venueDialogClosing()"
+    (confirmed)="onConfirmVenue()"
+    (cancelled)="onCancelVenue()"
+  />
+}

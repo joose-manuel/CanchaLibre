@@ -1,0 +1,79 @@
+<main class="reservas-admin">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="reservas-admin__menu reservas-admin__menu--sidebar"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="sidebar"
+    />
+  }
+
+  <div class="reservas-admin__body">
+    <header class="reservas-admin__top">
+      <div class="reservas-admin__top-text">
+        <p class="reservas-admin__eyebrow">Administración</p>
+        <h1 class="reservas-admin__title">Reservas</h1>
+      </div>
+
+      <div class="reservas-admin__top-actions">
+        <button type="button" class="reservas-admin__icon" aria-label="Notificaciones">
+          <i class="pi pi-bell" aria-hidden="true"></i>
+        </button>
+        <span class="reservas-admin__avatar" aria-hidden="true">MG</span>
+      </div>
+    </header>
+
+    <cl-subnav
+      [items]="subnavItems"
+      [active]="activeSection()"
+      (selectedChange)="onSectionChange($event)"
+    />
+
+    <section class="reservas-admin__content">
+      <cl-search-field
+        [placeholder]="searchPlaceholder"
+        (valueChange)="onSearch($event)"
+      />
+
+      <div class="reservas-admin__filters">
+        @for (filter of filters; track filter.value) {
+          <button
+            type="button"
+            class="reservas-admin__filter"
+            [class.reservas-admin__filter--active]="filter.value === activeFilter()"
+            [attr.aria-pressed]="filter.value === activeFilter()"
+            (click)="onFilterChange(filter.value)"
+          >
+            {{ filter.label }}
+          </button>
+        }
+      </div>
+
+      <div class="reservas-admin__section-head">
+        <h2 class="reservas-admin__section-title">{{ recentLabel }}</h2>
+        <button type="button" class="reservas-admin__history">{{ historyLabel }}</button>
+      </div>
+
+      <div class="reservas-admin__list">
+        @for (reservation of visibleReservations(); track reservation.id) {
+          <cl-reservation-card
+            [reservation]="reservation"
+            (open)="onOpen($event)"
+          />
+        } @empty {
+          <p class="reservas-admin__empty">No hay reservas con este filtro.</p>
+        }
+      </div>
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="reservas-admin__menu reservas-admin__menu--bottom"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>

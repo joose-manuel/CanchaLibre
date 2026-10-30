@@ -1,0 +1,62 @@
+<article class="next" [class]="'next next--' + match().sport">
+  <div class="next__media">
+    <img [src]="match().imageSrc" [alt]="match().venue" />
+
+    <span class="next__sport">
+      <span class="next__dot" aria-hidden="true"></span>
+      {{ match().sportLabel }} {{ match().totalPlayers }}
+    </span>
+
+    @if (countdownLabel()) {
+      <span class="next__countdown">
+        <i class="pi pi-clock" aria-hidden="true"></i>
+        Empieza en {{ countdownLabel() }}
+      </span>
+    }
+  </div>
+
+  <div class="next__body">
+    <h3 class="next__title">{{ match().venue }}</h3>
+
+    <p class="next__meta">
+      <span class="next__when">
+        @if (match().dateLabel) {
+          <span>{{ match().dateLabel }}</span>
+        }
+        <span>{{ match().startTime }}</span>
+      </span>
+      <span>{{ match().address }}</span>
+      @if (distanceLabel()) {
+        <span>{{ distanceLabel() }}</span>
+      }
+    </p>
+
+    <div
+      class="next__progress"
+      role="progressbar"
+      [attr.aria-valuenow]="fillPercent()"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <span [style.width.%]="fillPercent()"></span>
+    </div>
+
+    <div class="next__foot">
+      <p class="next__players">
+        {{ match().joinedPlayers }} de {{ match().totalPlayers }} jugadores
+        @if (missingPlayers() > 0) {
+          <em>· faltan {{ missingPlayers() }}</em>
+        }
+      </p>
+
+      <button
+        type="button"
+        class="next__cta"
+        [disabled]="ctaDisabled()"
+        (click)="join.emit(match())"
+      >
+        {{ ctaLabel() }}
+      </button>
+    </div>
+  </div>
+</article>

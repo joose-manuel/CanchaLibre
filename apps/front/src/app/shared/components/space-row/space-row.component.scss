@@ -1,0 +1,101 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.space {
+  @include surface.cl-surface(14px);
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.space__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 16px;
+}
+
+.space__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.space__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cl-color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.space__meta {
+  font-size: 11.5px;
+  color: var(--cl-color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.space__actions {
+  display: flex;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.space__action {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: var(--cl-color-surface-muted);
+  color: var(--cl-color-text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease-out,
+    background 0.24s ease,
+    color 0.24s ease;
+}
+
+.space__action:hover {
+  transform: translateY(-1px);
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+}
+
+.space__action:active {
+  transform: scale(0.92);
+}
+
+.space__action--danger:hover {
+  background: var(--cl-color-danger-soft);
+  color: var(--cl-color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space__action {
+    transition: opacity 0.2s ease;
+  }
+
+  .space__action:hover,
+  .space__action:active {
+    transform: none;
+  }
+}

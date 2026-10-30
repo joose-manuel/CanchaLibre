@@ -1,0 +1,108 @@
+<main class="disponibilidad">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="disponibilidad__menu disponibilidad__menu--sidebar"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="sidebar"
+    />
+  }
+
+  <div class="disponibilidad__body">
+    <header class="disponibilidad__top">
+      <button
+        type="button"
+        class="disponibilidad__back"
+        aria-label="Volver"
+        (click)="onSectionChange('agenda')"
+      >
+        <i class="pi pi-arrow-left" aria-hidden="true"></i>
+      </button>
+
+      <h1 class="disponibilidad__title">{{ pageTitle }}</h1>
+
+      <button type="button" class="disponibilidad__settings" aria-label="Ajustes">
+        <i class="pi pi-cog" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <cl-subnav
+      [items]="subnavItems"
+      [active]="activeSection()"
+      (selectedChange)="onSectionChange($event)"
+    />
+
+    <section class="disponibilidad__content">
+      <div class="disponibilidad__selector">
+        <i class="pi pi-search" aria-hidden="true"></i>
+        <select
+          class="disponibilidad__select"
+          [value]="selectedSpace()"
+          (change)="onSpaceChange($any($event.target).value)"
+        >
+          @for (space of spaces(); track space.id) {
+            <option [value]="space.id">{{ space.name }}</option>
+          }
+        </select>
+        <i class="pi pi-chevron-down" aria-hidden="true"></i>
+      </div>
+
+      <span class="disponibilidad__occupancy">
+        <i class="pi pi-circle-fill" aria-hidden="true"></i>
+        {{ occupancy() }}% Ocupado
+      </span>
+
+      <div class="grid" role="table" aria-label="Disponibilidad de la semana">
+        <div class="grid__head" role="row">
+          <span class="grid__corner" aria-hidden="true"></span>
+
+          @for (day of days(); track day.dayNumber) {
+            <span
+              class="grid__day"
+              [class.grid__day--today]="day.isToday"
+              role="columnheader"
+            >
+              <span class="grid__day-weekday">{{ day.weekday }}</span>
+              <span class="grid__day-number">{{ day.dayNumber }}</span>
+            </span>
+          }
+        </div>
+
+        @for (time of timeRows(); track time) {
+          <div class="grid__row" role="row">
+            <span class="grid__time" role="rowheader">{{ time }}</span>
+
+            @for (day of days(); track day.dayNumber) {
+              <span class="grid__cell" role="cell">
+                @for (slot of day.slots; track slot.time) {
+                  @if (slot.time === time) {
+                    @if (slot.entry; as entry) {
+                      <span class="grid__entry" [attr.data-tone]="entry.tone">
+                        {{ entry.label }}
+                      </span>
+                    }
+                  }
+                }
+              </span>
+            }
+          </div>
+        }
+      </div>
+
+      <button type="button" class="disponibilidad__block" (click)="onBlockRange()">
+        <i class="pi pi-ban" aria-hidden="true"></i>
+        {{ blockRangeLabel }}
+      </button>
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="disponibilidad__menu disponibilidad__menu--bottom"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>

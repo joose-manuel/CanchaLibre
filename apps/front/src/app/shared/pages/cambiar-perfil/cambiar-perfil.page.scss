@@ -1,0 +1,113 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--cl-color-background);
+}
+
+.cambiar-perfil {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.cambiar-perfil__body {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+/*
+ * Grid de tres columnas iguales: el título queda centrado respecto a la
+ * pantalla (no respecto al hueco que deja el botón), que es lo que pide el
+ * diseño.
+ */
+.cambiar-perfil__top {
+  @include surface.cl-surface-float(0);
+
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.cambiar-perfil__back {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.24s ease;
+}
+
+.cambiar-perfil__back:hover {
+  background: var(--cl-color-primary-soft-strong);
+  transform: translateX(-2px);
+}
+
+.cambiar-perfil__back:active {
+  transform: scale(0.92);
+}
+
+.cambiar-perfil__title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cl-color-text);
+}
+
+.cambiar-perfil__spacer {
+  width: 36px;
+}
+
+/* ---------- Contenido ---------- */
+
+.cambiar-perfil__content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px 0;
+}
+
+@media (min-width: 960px) {
+  .cambiar-perfil__body {
+    padding-bottom: 0;
+  }
+
+  .cambiar-perfil__top {
+    padding: 20px 40px;
+  }
+
+  .cambiar-perfil__content {
+    max-width: 560px;
+    padding: 28px 40px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cambiar-perfil__back {
+    transition: opacity 0.2s ease;
+  }
+
+  .cambiar-perfil__back:hover,
+  .cambiar-perfil__back:active {
+    transform: none;
+  }
+}

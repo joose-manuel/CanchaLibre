@@ -1,0 +1,313 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--cl-color-background);
+}
+
+.disponibilidad {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.disponibilidad__body {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.disponibilidad__top {
+  @include surface.cl-surface-float(0);
+
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.disponibilidad__back,
+.disponibilidad__settings {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--cl-color-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.24s ease;
+}
+
+.disponibilidad__back:hover,
+.disponibilidad__settings:hover {
+  background: var(--cl-color-primary-soft);
+}
+
+.disponibilidad__back:active,
+.disponibilidad__settings:active {
+  transform: scale(0.92);
+}
+
+.disponibilidad__title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cl-color-text);
+}
+
+/* ---------- Contenido ---------- */
+
+.disponibilidad__content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.disponibilidad__selector {
+  @include surface.cl-surface(14px);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  padding: 0 40px 0 14px;
+  min-height: 48px;
+  background: var(--cl-color-surface-muted);
+}
+
+.disponibilidad__selector > i:first-child {
+  font-size: 14px;
+  color: var(--cl-color-text-muted);
+}
+
+.disponibilidad__selector > i:last-child {
+  position: absolute;
+  right: 14px;
+  font-size: 12px;
+  color: var(--cl-color-text-muted);
+  pointer-events: none;
+}
+
+.disponibilidad__select {
+  width: 100%;
+  border: 0;
+  background: none;
+  font-family: var(--cl-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cl-color-text);
+  outline: none;
+  appearance: none;
+}
+
+.disponibilidad__occupancy {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.disponibilidad__occupancy i {
+  font-size: 8px;
+}
+
+/* ---------- Grilla ---------- */
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cl-border-hairline);
+  border-radius: 14px;
+  background: var(--cl-color-surface);
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.grid__head {
+  display: grid;
+  grid-template-columns: 44px repeat(7, minmax(0, 1fr));
+  border-bottom: 1px solid var(--cl-border-hairline);
+}
+
+.grid__corner {
+  background: var(--cl-color-surface-muted);
+}
+
+.grid__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 2px;
+  border-left: 1px solid var(--cl-border-hairline);
+}
+
+.grid__day-weekday {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cl-color-text-muted);
+}
+
+.grid__day-number {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--cl-color-text);
+}
+
+.grid__day--today {
+  background: var(--cl-color-primary-soft);
+}
+
+.grid__day--today .grid__day-number,
+.grid__day--today .grid__day-weekday {
+  color: var(--cl-color-primary);
+}
+
+.grid__row {
+  display: grid;
+  grid-template-columns: 44px repeat(7, minmax(0, 1fr));
+  min-height: 56px;
+  border-bottom: 1px solid var(--cl-border-subtle);
+}
+
+.grid__row:last-child {
+  border-bottom: 0;
+}
+
+.grid__time {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+  background: var(--cl-color-surface-muted);
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--cl-color-text-muted);
+}
+
+.grid__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border-left: 1px solid var(--cl-border-subtle);
+}
+
+.grid__entry {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 44px;
+  padding: 2px;
+  border-radius: 6px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  text-align: center;
+  overflow: hidden;
+}
+
+.grid__entry[data-tone='pending'] {
+  background: var(--cl-color-warning);
+  color: #ffffff;
+}
+
+.grid__entry[data-tone='blocked'] {
+  background: var(--cl-color-surface-muted);
+  color: var(--cl-color-text-muted);
+  border: 1px solid var(--cl-border-hairline);
+}
+
+/* ---------- Bloquear ---------- */
+
+.disponibilidad__block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  align-self: flex-end;
+  height: 46px;
+  margin-top: 4px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-family: var(--cl-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease;
+}
+
+.disponibilidad__block:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 30px -14px var(--cl-color-primary-soft-strong);
+}
+
+.disponibilidad__block:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Escritorio ---------- */
+
+@media (min-width: 960px) {
+  .disponibilidad__body {
+    padding-bottom: 0;
+  }
+
+  .disponibilidad__content {
+    padding: 20px 40px 48px;
+    max-width: 860px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disponibilidad__back,
+  .disponibilidad__settings,
+  .disponibilidad__block {
+    transition: opacity 0.2s ease;
+  }
+
+  .disponibilidad__back:active,
+  .disponibilidad__settings:active,
+  .disponibilidad__block:hover {
+    transform: none;
+  }
+}

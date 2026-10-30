@@ -1,0 +1,16 @@
+<div class="stats">
+  <div class="stats__item">
+    <span class="stats__label">Reservas</span>
+    <strong class="stats__value">{{ stats().reservations }}</strong>
+  </div>
+
+  <div class="stats__item">
+    <span class="stats__label">Anticipos</span>
+    <strong class="stats__value stats__value--money">{{ depositsLabel() }}</strong>
+  </div>
+
+  <div class="stats__item">
+    <span class="stats__label">Bloqueos</span>
+    <strong class="stats__value stats__value--warning">{{ stats().blocks }}</strong>
+  </div>
+</div>

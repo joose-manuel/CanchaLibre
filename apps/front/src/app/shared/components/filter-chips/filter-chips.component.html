@@ -7,6 +7,9 @@
       [attr.aria-pressed]="option.value === selected()"
       (click)="selectedChange.emit(option.value)"
     >
+      @if (option.dotColor) {
+        <span class="chip__dot" [style.background]="option.dotColor" aria-hidden="true"></span>
+      }
       {{ option.label }}
     </button>
   }

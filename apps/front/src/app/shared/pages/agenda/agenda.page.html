@@ -1,0 +1,72 @@
+<main class="agenda">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="agenda__menu agenda__menu--sidebar"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="sidebar"
+    />
+  }
+
+  <div class="agenda__body">
+    <header class="agenda__top">
+      <div class="agenda__top-text">
+        <p class="agenda__eyebrow">Agenda del día</p>
+        <h1 class="agenda__title">Hoy</h1>
+      </div>
+
+      <button type="button" class="agenda__search" aria-label="Buscar reservas">
+        <i class="pi pi-search" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <cl-subnav
+      [items]="subnavItems"
+      [active]="activeSection()"
+      (selectedChange)="onSectionChange($event)"
+    />
+
+    <section class="agenda__content">
+      <cl-agenda-stats [stats]="stats()" />
+
+      <cl-booking-segments
+        [segments]="dayTabs"
+        [selected]="selectedDay()"
+        (selectedChange)="onDayChange($event)"
+      />
+
+      <div class="agenda__section-head">
+        <h2 class="agenda__section-title">{{ scheduleTitle }}</h2>
+        <span class="agenda__section-date">MARTES, 24 OCT</span>
+      </div>
+
+      <div class="agenda__list">
+        @for (entry of entries(); track entry.id) {
+          <cl-agenda-entry
+            [entry]="entry"
+            (confirm)="onConfirm($event)"
+            (reject)="onReject($event)"
+            (open)="onOpen($event)"
+          />
+        } @empty {
+          <p class="agenda__empty">No hay reservas para este día.</p>
+        }
+      </div>
+
+      <button type="button" class="agenda__block">
+        <i class="pi pi-ban" aria-hidden="true"></i>
+        {{ blockSlotLabel }}
+      </button>
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="agenda__menu agenda__menu--bottom"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>

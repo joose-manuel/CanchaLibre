@@ -1,0 +1,166 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.venue {
+  @include surface.cl-surface(18px);
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:
+    transform 0.18s ease-out,
+    box-shadow 0.24s ease;
+}
+
+.venue:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset),
+    0 2px 4px rgba(15, 23, 42, 0.05),
+    0 14px 28px -16px rgba(15, 23, 42, 0.5);
+}
+
+.venue__media {
+  height: 128px;
+  background: var(--cl-color-surface-muted);
+}
+
+.venue__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.venue__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+
+.venue__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.venue__name {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cl-color-text);
+}
+
+.venue__spaces {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cl-color-text-muted);
+}
+
+.venue__address {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--cl-color-text-secondary);
+}
+
+.venue__address i {
+  font-size: 12px;
+  color: var(--cl-color-text-muted);
+}
+
+.venue__sports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.venue__sport {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.venue__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cl-border-hairline);
+}
+
+.venue__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--cl-color-text-muted);
+}
+
+.venue__meta-item i {
+  font-size: 12px;
+  color: var(--cl-color-primary);
+}
+
+.venue__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.venue__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 1;
+  height: 42px;
+  border: 1px solid var(--cl-border-hairline-strong);
+  border-radius: 12px;
+  background: var(--cl-color-surface);
+  color: var(--cl-color-text);
+  font-family: var(--cl-font-family);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease-out,
+    background 0.24s ease,
+    border-color 0.24s ease,
+    color 0.24s ease;
+}
+
+.venue__action:hover {
+  transform: translateY(-1px);
+  border-color: var(--cl-color-primary);
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+}
+
+.venue__action:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venue,
+  .venue__action {
+    transition: opacity 0.2s ease;
+  }
+
+  .venue:hover,
+  .venue__action:hover {
+    transform: none;
+  }
+}

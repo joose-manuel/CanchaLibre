@@ -1,0 +1,121 @@
+<main class="detalle">
+  <header class="detalle__top">
+    <button type="button" class="detalle__back" aria-label="Volver" (click)="goBack()">
+      <i class="pi pi-arrow-left" aria-hidden="true"></i>
+    </button>
+
+    <h1 class="detalle__title">{{ detail().title }}</h1>
+
+    <span class="detalle__badge">{{ detail().statusLabel }}</span>
+  </header>
+
+  <section class="detalle__content">
+    <cl-booking-stepper [steps]="steps()" />
+
+    <div class="detalle__media">
+      <img [src]="detail().imageSrc" [alt]="detail().courtName" />
+    </div>
+
+    <div class="detalle__title-row">
+      <div>
+        <h2 class="detalle__court">{{ detail().courtName }}</h2>
+        <p class="detalle__venue">{{ detail().venueName }}</p>
+      </div>
+
+      <span class="detalle__court-icon" aria-hidden="true">
+        <i class="pi pi-th-large"></i>
+      </span>
+    </div>
+
+    <dl class="detalle__facts">
+      <div class="detalle__fact">
+        <dt><i class="pi pi-calendar" aria-hidden="true"></i> FECHA</dt>
+        <dd>{{ detail().dateLabel }}</dd>
+      </div>
+
+      <div class="detalle__fact">
+        <dt><i class="pi pi-clock" aria-hidden="true"></i> HORARIO</dt>
+        <dd>{{ detail().timeLabel }}</dd>
+      </div>
+
+      <div class="detalle__fact">
+        <dt><i class="pi pi-stopwatch" aria-hidden="true"></i> DURACIÓN</dt>
+        <dd>{{ detail().durationLabel }}</dd>
+      </div>
+
+      <div class="detalle__fact">
+        <dt><i class="pi pi-users" aria-hidden="true"></i> FORMATO</dt>
+        <dd>{{ detail().formatLabel }}</dd>
+      </div>
+    </dl>
+
+    <section class="detalle__section">
+      <h3 class="detalle__section-title">INFORMACIÓN DEL CLIENTE</h3>
+
+      <div class="detalle__client">
+        <span class="detalle__client-avatar">{{ detail().customerInitials }}</span>
+
+        <span class="detalle__client-body">
+          <strong class="detalle__client-name">{{ detail().customerName }}</strong>
+          <span class="detalle__client-phone">{{ detail().customerPhone }}</span>
+        </span>
+
+        <button
+          type="button"
+          class="detalle__client-action"
+          aria-label="Contactar por WhatsApp"
+        >
+          <i class="pi pi-comment" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+
+    <section class="detalle__section">
+      <h3 class="detalle__section-title">ESTADO DE PAGO</h3>
+
+      <div class="detalle__payments">
+        <div class="detalle__payment detalle__payment--paid">
+          <span class="detalle__payment-icon" aria-hidden="true">
+            <i class="pi pi-check-circle"></i>
+          </span>
+          <span class="detalle__payment-body">
+            <span class="detalle__payment-label">Anticipo (Online)</span>
+          </span>
+          <strong class="detalle__payment-value">{{ detail().depositLabel }}</strong>
+        </div>
+
+        <div class="detalle__payment detalle__payment--pending">
+          <span class="detalle__payment-icon" aria-hidden="true">
+            <i class="pi pi-clock"></i>
+          </span>
+          <span class="detalle__payment-body">
+            <span class="detalle__payment-label">Saldo (En el club)</span>
+          </span>
+          <strong class="detalle__payment-value">{{ detail().balanceLabel }}</strong>
+        </div>
+      </div>
+
+      <div class="detalle__total">
+        <span class="detalle__total-label">Total de la reserva</span>
+        <strong class="detalle__total-value">{{ detail().totalLabel }}</strong>
+      </div>
+    </section>
+
+    <p class="detalle__policy">
+      <i class="pi pi-info-circle" aria-hidden="true"></i>
+      {{ detail().policyText }}
+    </p>
+
+    <div class="detalle__actions">
+      <button type="button" class="detalle__action" (click)="onCancel()">
+        <i class="pi pi-times-circle" aria-hidden="true"></i>
+        Cancelar
+      </button>
+
+      <button type="button" class="detalle__action detalle__action--danger" (click)="onNoShow()">
+        <i class="pi pi-user-minus" aria-hidden="true"></i>
+        No-show
+      </button>
+    </div>
+  </section>
+</main>

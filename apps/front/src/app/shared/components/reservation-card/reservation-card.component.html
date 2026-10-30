@@ -1,0 +1,26 @@
+<button type="button" class="reservation" (click)="open.emit(reservation())">
+  <span class="reservation__head">
+    <span class="reservation__name">{{ reservation().customerName }}</span>
+    <span class="reservation__badge" [attr.data-tone]="reservation().statusTone">
+      {{ reservation().statusLabel }}
+    </span>
+  </span>
+
+  <span class="reservation__code">{{ reservation().codeLabel }}</span>
+
+  <span class="reservation__meta">
+    <span class="reservation__meta-item">
+      <i class="pi pi-calendar" aria-hidden="true"></i>
+      {{ reservation().dateLabel }}
+    </span>
+    <span class="reservation__meta-item">
+      <i class="pi pi-clock" aria-hidden="true"></i>
+      {{ reservation().timeLabel }}
+    </span>
+  </span>
+
+  <span class="reservation__foot">
+    <span class="reservation__detail">{{ reservation().detailLabel }}</span>
+    <strong class="reservation__price">{{ reservation().priceLabel }}</strong>
+  </span>
+</button>

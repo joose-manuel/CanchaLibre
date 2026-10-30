@@ -1,0 +1,110 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+}
+
+.wizard-header {
+  @include surface.cl-surface-float(0);
+
+  padding: 14px 16px 12px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.wizard-header__bar {
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  gap: 10px;
+}
+
+.wizard-header__back {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.24s ease;
+}
+
+.wizard-header__back:hover {
+  background: var(--cl-color-primary-soft-strong);
+  transform: translateX(-2px);
+}
+
+.wizard-header__back:active {
+  transform: scale(0.92);
+}
+
+.wizard-header__title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cl-color-text);
+}
+
+.wizard-header__spacer {
+  width: 36px;
+}
+
+.wizard-header__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.wizard-header__step {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cl-color-primary);
+}
+
+.wizard-header__percent {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cl-color-text-muted);
+}
+
+.wizard-header__progress {
+  margin-top: 8px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--cl-color-primary-soft);
+  overflow: hidden;
+}
+
+.wizard-header__progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--cl-color-primary);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wizard-header__progress span,
+  .wizard-header__back {
+    transition: opacity 0.2s ease;
+  }
+
+  .wizard-header__back:hover,
+  .wizard-header__back:active {
+    transform: none;
+  }
+}

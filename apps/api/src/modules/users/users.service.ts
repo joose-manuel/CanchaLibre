@@ -106,4 +106,19 @@ export class UsersService {
     }
     return this.findById(id);
   }
+
+  /**
+   * Devuelve el usuario al rol de jugador.
+   *
+   * Es el camino inverso de `becomeOwner`: el usuario puede alternar entre
+   * los dos modos tantas veces como necesite.
+   */
+  async becomePlayer(id: string): Promise<User> {
+    const user = await this.findById(id);
+    if (user.role === UserRole.Owner) {
+      user.role = UserRole.Player;
+      await this.users.save(user);
+    }
+    return this.findById(id);
+  }
 }

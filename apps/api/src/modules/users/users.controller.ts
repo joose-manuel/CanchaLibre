@@ -29,4 +29,9 @@ export class UsersController {
   async becomeOwner(@CurrentUser('id') userId: string): Promise<UserModel> {
     return toUserModel(await this.users.becomeOwner(userId));
   }
+
+  @Post('me/become-player')
+  async becomePlayer(@CurrentUser('id') userId: string): Promise<UserModel> {
+    return toUserModel(await this.users.becomePlayer(userId));
+  }
 }

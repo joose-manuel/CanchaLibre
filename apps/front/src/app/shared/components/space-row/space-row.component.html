@@ -1,0 +1,30 @@
+<div class="space">
+  <span class="space__icon" aria-hidden="true">
+    <i [class]="space().icon"></i>
+  </span>
+
+  <span class="space__body">
+    <span class="space__name">{{ space().name }}</span>
+    <span class="space__meta">{{ space().summary }}</span>
+  </span>
+
+  <span class="space__actions">
+    <button
+      type="button"
+      class="space__action"
+      [attr.aria-label]="'Editar ' + space().name"
+      (click)="edit.emit(space())"
+    >
+      <i class="pi pi-pencil" aria-hidden="true"></i>
+    </button>
+
+    <button
+      type="button"
+      class="space__action space__action--danger"
+      [attr.aria-label]="'Eliminar ' + space().name"
+      (click)="remove.emit(space())"
+    >
+      <i class="pi pi-trash" aria-hidden="true"></i>
+    </button>
+  </span>
+</div>

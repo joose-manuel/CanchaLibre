@@ -52,16 +52,25 @@ export class OwnerService {
   ): Promise<OwnerScheduleItem[]> {
     const date = query.date ?? todayIso();
 
-    const rows = await this.bookings
-      .createQueryBuilder('booking')
-      .leftJoinAndSelect('booking.match', 'match')
-      .leftJoinAndSelect('match.creator', 'creator')
-      .leftJoinAndSelect('match.space', 'space')
-      .leftJoinAndSelect('space.venue', 'venue')
-      .where('venue.owner_id = :ownerId', { ownerId: user.id })
+    const rows = await this.bookingsQuery(user)
       .andWhere('match.match_date = :date', { date })
       .andWhere('booking.status <> :cancelled', { cancelled: BookingStatus.Cancelled })
       .orderBy('match.start_time', 'ASC')
+      .getMany();
+
+    return rows.map((booking) => this.toScheduleItem(booking));
+  }
+
+  /**
+   * Todas las reservas de las sedes del propietario, sin filtro de fecha.
+   *
+   * Es la lista de reservas de la sección de administración: incluye las
+   * canceladas (para poder verlas) y ordena por fecha descendente.
+   */
+  async listBookings(user: AuthenticatedUser): Promise<OwnerScheduleItem[]> {
+    const rows = await this.bookingsQuery(user)
+      .orderBy('match.match_date', 'DESC')
+      .addOrderBy('match.start_time', 'DESC')
       .getMany();
 
     return rows.map((booking) => this.toScheduleItem(booking));
@@ -184,6 +193,17 @@ export class OwnerService {
     );
 
     return this.toScheduleItem(booking);
+  }
+
+  /** Consulta base: todas las reservas de las sedes del propietario. */
+  private bookingsQuery(user: AuthenticatedUser) {
+    return this.bookings
+      .createQueryBuilder('booking')
+      .leftJoinAndSelect('booking.match', 'match')
+      .leftJoinAndSelect('match.creator', 'creator')
+      .leftJoinAndSelect('match.space', 'space')
+      .leftJoinAndSelect('space.venue', 'venue')
+      .where('venue.owner_id = :ownerId', { ownerId: user.id });
   }
 
   private async loadBooking(bookingId: string, user: AuthenticatedUser): Promise<Booking> {

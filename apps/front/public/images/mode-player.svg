@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Jugadores en una cancha al atardecer">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7b267" />
+      <stop offset="45%" stop-color="#f4845f" />
+      <stop offset="100%" stop-color="#e2603f" />
+    </linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6b3a" />
+      <stop offset="100%" stop-color="#2d4527" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#fff6d5" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#fff6d5" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="640" height="400" fill="url(#sky)" />
+  <circle cx="430" cy="205" r="150" fill="url(#glow)" />
+  <circle cx="430" cy="205" r="38" fill="#fff3cd" />
+
+  <!-- Silueta de arboles al fondo -->
+  <g fill="#22331f" opacity="0.85">
+    <ellipse cx="60" cy="196" rx="54" ry="34" />
+    <ellipse cx="130" cy="186" rx="40" ry="26" />
+    <ellipse cx="586" cy="190" rx="62" ry="38" />
+    <ellipse cx="520" cy="200" rx="38" ry="24" />
+  </g>
+
+  <rect y="200" width="640" height="200" fill="url(#grass)" />
+
+  <!-- Franjas de la cancha -->
+  <g fill="#ffffff" opacity="0.07">
+    <rect x="0" y="200" width="640" height="34" />
+    <rect x="0" y="268" width="640" height="34" />
+    <rect x="0" y="336" width="640" height="34" />
+  </g>
+
+  <!-- Jugadores (siluetas) -->
+  <g fill="#16211a">
+    <g transform="translate(96 258)">
+      <circle cx="0" cy="-34" r="9" />
+      <path d="M-9 -24 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" />
+      <path d="M-8 6 l-5 26 h8 l5 -20 5 20 h8 l-5 -26 z" />
+    </g>
+    <g transform="translate(196 246)">
+      <circle cx="0" cy="-34" r="9" />
+      <path d="M-9 -24 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" />
+      <path d="M-8 6 l-5 26 h8 l5 -20 5 20 h8 l-5 -26 z" />
+    </g>
+    <g transform="translate(300 252)">
+      <circle cx="0" cy="-34" r="9" />
+      <path d="M-9 -24 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" />
+      <path d="M-8 6 l-5 26 h8 l5 -20 5 20 h8 l-5 -26 z" />
+    </g>
+    <g transform="translate(508 250)">
+      <circle cx="0" cy="-34" r="9" />
+      <path d="M-9 -24 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" />
+      <path d="M-8 6 l-5 26 h8 l5 -20 5 20 h8 l-5 -26 z" />
+    </g>
+    <g transform="translate(572 254)">
+      <circle cx="0" cy="-34" r="9" />
+      <path d="M-9 -24 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" />
+      <path d="M-8 6 l-5 26 h8 l5 -20 5 20 h8 l-5 -26 z" />
+    </g>
+  </g>
+
+  <!-- Camisetas de dos jugadores -->
+  <g>
+    <path d="M87 234 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" fill="#e2603f" />
+    <path d="M187 222 h18 l4 30 h-9 l-2 -18 -2 18 h-9 z" fill="#2f6fb0" />
+  </g>
+
+  <!-- Balon -->
+  <circle cx="392" cy="330" r="11" fill="#f4f4f4" />
+  <path d="M392 322 l6 5 -2 8 h-8 l-2 -8 z" fill="#2b2b2b" />
+</svg>

@@ -1,0 +1,69 @@
+<main class="canchas">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="canchas__menu canchas__menu--sidebar"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="sidebar"
+    />
+  }
+
+  <div class="canchas__body">
+    <header class="canchas__top">
+      <div class="canchas__top-text">
+        <p class="canchas__eyebrow">Modo propietario</p>
+        <h1 class="canchas__title">Mis Canchas</h1>
+      </div>
+
+      <button
+        type="button"
+        class="canchas__add"
+        aria-label="Registrar una cancha"
+        (click)="onCreate()"
+      >
+        <i class="pi pi-plus" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <section class="canchas__content">
+      @if (loading()) {
+        <p class="canchas__empty">Cargando tus canchas...</p>
+      } @else if (isEmpty()) {
+        <div class="canchas__empty-state">
+          <span class="canchas__empty-icon" aria-hidden="true">
+            <i class="pi pi-building"></i>
+          </span>
+          <h2 class="canchas__empty-title">Aún no tienes canchas</h2>
+          <p class="canchas__empty-text">
+            Registra tu sede para empezar a recibir reservas y gestionar tus espacios.
+          </p>
+
+          <button type="button" class="canchas__empty-action" (click)="onCreate()">
+            <i class="pi pi-plus" aria-hidden="true"></i>
+            Registrar mi cancha
+          </button>
+        </div>
+      } @else {
+        <div class="canchas__list">
+          @for (venue of venues(); track venue.id) {
+            <cl-venue-card
+              [venue]="venue"
+              (edit)="onEdit($event)"
+              (manage)="onManage($event)"
+            />
+          }
+        </div>
+      }
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="canchas__menu canchas__menu--bottom"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>

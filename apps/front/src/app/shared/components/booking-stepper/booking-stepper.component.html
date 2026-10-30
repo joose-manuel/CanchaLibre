@@ -1,0 +1,19 @@
+<ol class="stepper">
+  @for (step of steps(); track step.key; let last = $last) {
+    <li class="stepper__step" [class.stepper__step--done]="step.done">
+      <span class="stepper__marker" aria-hidden="true">
+        @if (step.done) {
+          <i class="pi pi-check"></i>
+        } @else {
+          <i class="pi pi-copy"></i>
+        }
+      </span>
+
+      <span class="stepper__label">{{ step.label }}</span>
+    </li>
+
+    @if (!last) {
+      <li class="stepper__line" [class.stepper__line--done]="step.done" aria-hidden="true"></li>
+    }
+  }
+</ol>

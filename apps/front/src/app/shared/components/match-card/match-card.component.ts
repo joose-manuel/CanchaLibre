@@ -1,30 +1,33 @@
-import { Component, computed, input, output } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ProgressBar } from 'primeng/progressbar';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { MatchSummary } from '../../interfaces/match-summary.interface';
 
+/**
+ * Card compacta de un partido (fila de la lista del dashboard).
+ *
+ * La portada es pequeña y la información va en columna: título, deporte con
+ * su color, dirección y hora. La acción va a la derecha.
+ */
 @Component({
   selector: 'cl-match-card',
-  imports: [Button, ProgressBar],
   templateUrl: './match-card.component.html',
   styleUrl: './match-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatchCardComponent {
   readonly match = input.required<MatchSummary>();
-  readonly ctaLabel = input('Unirse al partido');
-  readonly ctaSeverity = input<'primary' | 'secondary'>('primary');
+  readonly ctaLabel = input('Unirme');
   readonly ctaDisabled = input(false);
-  readonly showMedia = input(true);
-  readonly showAvailability = input(true);
-  readonly showCta = input(true);
-  readonly availabilityLabel = input('Disponibilidad');
-  readonly playersLabel = input('jugadores');
-  readonly clockIcon = input('pi pi-clock');
-  readonly locationIcon = input('pi pi-map-marker');
+
   readonly join = output<MatchSummary>();
 
-  protected readonly fillPercent = computed(() => {
-    const { joinedPlayers, totalPlayers } = this.match();
-    return totalPlayers > 0 ? Math.round((joinedPlayers / totalPlayers) * 100) : 0;
+  /** "1,2 km" */
+  protected readonly distanceLabel = computed(() => {
+    const distance = this.match().distanceKm;
+
+    if (distance === undefined) {
+      return '';
+    }
+
+    return `${distance.toLocaleString('es-CO', { maximumFractionDigits: 1 })} km`;
   });
 }

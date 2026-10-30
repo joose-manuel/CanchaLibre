@@ -1,0 +1,17 @@
+<nav class="subnav" role="tablist">
+  @for (item of items(); track item.value) {
+    <button
+      type="button"
+      class="subnav__item"
+      role="tab"
+      [class.subnav__item--active]="item.value === active()"
+      [attr.aria-selected]="item.value === active()"
+      (click)="selectedChange.emit(item.value)"
+    >
+      @if (item.icon) {
+        <i [class]="item.icon" aria-hidden="true"></i>
+      }
+      {{ item.label }}
+    </button>
+  }
+</nav>

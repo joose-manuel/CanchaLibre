@@ -1,0 +1,50 @@
+<article class="venue">
+  <div class="venue__media">
+    <img [src]="venue().imageSrc" [alt]="venue().name" />
+  </div>
+
+  <div class="venue__body">
+    <header class="venue__head">
+      <h3 class="venue__name">{{ venue().name }}</h3>
+      <span class="venue__spaces">
+        {{ venue().spaceCount }} espacio{{ venue().spaceCount === 1 ? '' : 's' }}
+      </span>
+    </header>
+
+    <p class="venue__address">
+      <i class="pi pi-map-marker" aria-hidden="true"></i>
+      {{ venue().address }}, {{ venue().city }}
+    </p>
+
+    @if (venue().sports.length) {
+      <div class="venue__sports">
+        @for (sport of venue().sports; track sport) {
+          <span class="venue__sport">{{ sport }}</span>
+        }
+      </div>
+    }
+
+    <div class="venue__meta">
+      <span class="venue__meta-item">
+        <i class="pi pi-wallet" aria-hidden="true"></i>
+        {{ venue().depositLabel }}
+      </span>
+      <span class="venue__meta-item">
+        <i class="pi pi-credit-card" aria-hidden="true"></i>
+        {{ venue().balanceLabel }}
+      </span>
+    </div>
+
+    <div class="venue__actions">
+      <button type="button" class="venue__action" (click)="edit.emit(venue())">
+        <i class="pi pi-pencil" aria-hidden="true"></i>
+        Editar
+      </button>
+
+      <button type="button" class="venue__action" (click)="manage.emit(venue())">
+        <i class="pi pi-cog" aria-hidden="true"></i>
+        Administrar
+      </button>
+    </div>
+  </div>
+</article>

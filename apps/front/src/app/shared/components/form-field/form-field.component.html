@@ -1,0 +1,16 @@
+<div class="field">
+  <span class="field__label">
+    @if (icon()) {
+      <i [class]="icon()" aria-hidden="true"></i>
+    }
+    {{ label() }}
+  </span>
+
+  <div class="field__control">
+    <ng-content />
+  </div>
+
+  @if (hint()) {
+    <span class="field__hint">{{ hint() }}</span>
+  }
+</div>

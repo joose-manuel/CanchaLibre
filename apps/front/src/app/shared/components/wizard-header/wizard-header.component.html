@@ -1,0 +1,31 @@
+<header class="wizard-header">
+  <div class="wizard-header__bar">
+    <button
+      type="button"
+      class="wizard-header__back"
+      aria-label="Volver"
+      (click)="back.emit()"
+    >
+      <i class="pi pi-arrow-left" aria-hidden="true"></i>
+    </button>
+
+    <h1 class="wizard-header__title">{{ title() }}</h1>
+
+    <span class="wizard-header__spacer" aria-hidden="true"></span>
+  </div>
+
+  <div class="wizard-header__meta">
+    <span class="wizard-header__step">{{ stepLabel() }}</span>
+    <span class="wizard-header__percent">{{ percentLabel() }}</span>
+  </div>
+
+  <div
+    class="wizard-header__progress"
+    role="progressbar"
+    [attr.aria-valuenow]="percent()"
+    aria-valuemin="0"
+    aria-valuemax="100"
+  >
+    <span [style.width.%]="percent()"></span>
+  </div>
+</header>

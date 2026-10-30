@@ -1,0 +1,29 @@
+<article class="mode" [class.mode--active]="active()">
+  <header class="mode__head">
+    <span class="mode__icon" aria-hidden="true">
+      <i [class]="mode().icon"></i>
+    </span>
+
+    <h3 class="mode__title">{{ mode().title }}</h3>
+
+    @if (active()) {
+      <span class="mode__badge">Activo</span>
+    }
+  </header>
+
+  <p class="mode__description">{{ mode().description }}</p>
+
+  <div class="mode__media">
+    <img [src]="mode().imageSrc" [alt]="mode().title" />
+  </div>
+
+  <button
+    type="button"
+    class="mode__action"
+    [class.mode__action--secondary]="secondary()"
+    [disabled]="disabled()"
+    (click)="modeSelected.emit(mode())"
+  >
+    {{ actionLabel() }}
+  </button>
+</article>

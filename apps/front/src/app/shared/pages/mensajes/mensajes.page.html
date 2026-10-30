@@ -1,0 +1,140 @@
+<main class="mensajes">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="mensajes__menu mensajes__menu--sidebar"
+      [items]="navItems"
+      activeKey="mensajes"
+      variant="sidebar"
+    />
+  }
+
+  <div class="mensajes__body">
+    @if (!activeConversation()) {
+      <!-- ============ Lista de conversaciones ============ -->
+      <header class="mensajes__top">
+        <div class="mensajes__top-text">
+          <p class="mensajes__eyebrow">Conversaciones</p>
+          <h1 class="mensajes__title">Mensajes</h1>
+        </div>
+
+        @if (totalUnread() > 0) {
+          <span class="mensajes__badge">{{ totalUnread() }}</span>
+        }
+      </header>
+
+      <section class="mensajes__content">
+        <cl-search-field
+          [placeholder]="searchPlaceholder"
+          (valueChange)="onSearch($event)"
+        />
+
+        <div class="mensajes__list">
+          @for (conversation of visibleConversations(); track conversation.id) {
+            <button
+              type="button"
+              class="chat"
+              (click)="onOpen(conversation)"
+            >
+              <span class="chat__avatar" [class.chat__avatar--group]="conversation.isGroup">
+                {{ conversation.initials }}
+                @if (conversation.online) {
+                  <span class="chat__online" aria-hidden="true"></span>
+                }
+              </span>
+
+              <span class="chat__body">
+                <span class="chat__head">
+                  <span class="chat__name">{{ conversation.name }}</span>
+                  <span class="chat__time">{{ conversation.timeLabel }}</span>
+                </span>
+
+                <span class="chat__preview">{{ conversation.preview }}</span>
+              </span>
+
+              @if (conversation.unread > 0) {
+                <span class="chat__unread">{{ conversation.unread }}</span>
+              }
+            </button>
+          } @empty {
+            <p class="mensajes__empty">No hay conversaciones con ese nombre.</p>
+          }
+        </div>
+      </section>
+    } @else {
+      <!-- ============ Conversación abierta ============ -->
+      <header class="mensajes__top">
+        <button
+          type="button"
+          class="mensajes__back"
+          aria-label="Volver a los mensajes"
+          (click)="onClose()"
+        >
+          <i class="pi pi-arrow-left" aria-hidden="true"></i>
+        </button>
+
+        <span class="mensajes__chat-avatar" aria-hidden="true">
+          {{ activeConversation()?.initials }}
+        </span>
+
+        <div class="mensajes__top-text">
+          <h1 class="mensajes__chat-name">{{ activeConversation()?.name }}</h1>
+          @if (activeConversation()?.online) {
+            <p class="mensajes__chat-status">En línea</p>
+          }
+        </div>
+
+        <button type="button" class="mensajes__chat-info" aria-label="Información">
+          <i class="pi pi-info-circle" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <section class="mensajes__thread">
+        @for (message of activeConversation()?.messages; track message.id) {
+          <div class="bubble" [class.bubble--mine]="message.fromMe">
+            <p class="bubble__text">{{ message.text }}</p>
+            <span class="bubble__meta">
+              {{ message.timeLabel }}
+              @if (message.fromMe && message.read) {
+                <i class="pi pi-check-circle" aria-hidden="true"></i>
+              }
+            </span>
+          </div>
+        }
+      </section>
+
+      <footer class="mensajes__composer">
+        <button type="button" class="mensajes__attach" aria-label="Adjuntar">
+          <i class="pi pi-paperclip" aria-hidden="true"></i>
+        </button>
+
+        <input
+          type="text"
+          class="mensajes__input"
+          [placeholder]="composerPlaceholder"
+          [value]="draft()"
+          (input)="onDraft($any($event.target).value)"
+          (keydown.enter)="onSend()"
+        />
+
+        <button
+          type="button"
+          class="mensajes__send"
+          aria-label="Enviar mensaje"
+          [disabled]="!draft().trim()"
+          (click)="onSend()"
+        >
+          <i class="pi pi-send" aria-hidden="true"></i>
+        </button>
+      </footer>
+    }
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="mensajes__menu mensajes__menu--bottom"
+      [items]="navItems"
+      activeKey="mensajes"
+      variant="bottom"
+    />
+  }
+</main>

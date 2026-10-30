@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Panel de control con camaras de seguridad">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a4f56" />
+      <stop offset="100%" stop-color="#2b2f35" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b9bfc6" />
+      <stop offset="100%" stop-color="#878e96" />
+    </linearGradient>
+    <linearGradient id="laptop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8cdd2" />
+      <stop offset="100%" stop-color="#9aa1a8" />
+    </linearGradient>
+    <linearGradient id="pot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9aa396" />
+      <stop offset="100%" stop-color="#6a7365" />
+    </linearGradient>
+    <linearGradient id="court" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9aa1a8" />
+      <stop offset="100%" stop-color="#767d85" />
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="400" fill="url(#wall)" />
+
+  <!-- ============ Panel 1: monitor con camaras ============ -->
+  <g>
+    <rect x="26" y="30" width="184" height="340" fill="#33383e" />
+    <rect x="36" y="42" width="164" height="286" fill="url(#screen)" />
+
+    <!-- Terreno de la camara 1 -->
+    <g fill="#6d757d" opacity="0.9">
+      <path d="M36 210 l54 -56 46 36 64 -46 v134 H36 z" />
+    </g>
+    <g fill="#565e66">
+      <rect x="96" y="170" width="34" height="46" rx="2" />
+      <rect x="136" y="160" width="26" height="38" rx="2" />
+    </g>
+    <g fill="#454c53">
+      <circle cx="113" cy="238" r="8" />
+      <circle cx="149" cy="220" r="6" />
+    </g>
+
+    <!-- Terreno de la camara 2 -->
+    <rect x="36" y="196" width="164" height="66" fill="#828a92" opacity="0.55" />
+    <g stroke="#6a727a" stroke-width="2" fill="none">
+      <rect x="60" y="206" width="46" height="30" />
+      <rect x="122" y="206" width="46" height="30" />
+      <path d="M118 206 v30" />
+    </g>
+    <g fill="#4d545b">
+      <circle cx="83" cy="238" r="4" />
+      <circle cx="145" cy="238" r="4" />
+      <circle cx="83" cy="212" r="4" />
+      <circle cx="145" cy="212" r="4" />
+    </g>
+
+    <!-- Etiquetas de la camara -->
+    <g fill="#e2603f">
+      <circle cx="48" cy="54" r="4" />
+    </g>
+    <g fill="#6f767d">
+      <rect x="36" y="334" width="70" height="7" rx="3" />
+      <rect x="36" y="348" width="42" height="6" rx="3" />
+    </g>
+    <g fill="#525960">
+      <rect x="140" y="336" width="60" height="18" rx="3" />
+    </g>
+  </g>
+
+  <!-- ============ Panel 2: portatil con vista aerea ============ -->
+  <g>
+    <rect x="222" y="30" width="196" height="340" fill="#2f343a" />
+
+    <!-- Vista aerea de la cancha en el portatil -->
+    <rect x="236" y="44" width="168" height="120" fill="url(#court)" />
+    <g stroke="#d8dce0" stroke-width="1.5" fill="none" opacity="0.85">
+      <rect x="250" y="56" width="140" height="96" />
+      <path d="M320 56 v96" />
+      <rect x="250" y="88" width="26" height="32" />
+      <rect x="364" y="88" width="26" height="32" />
+      <circle cx="320" cy="104" r="16" />
+    </g>
+    <!-- Jugadores vistos desde arriba -->
+    <g fill="#f2f4f6">
+      <circle cx="284" cy="96" r="4" />
+      <circle cx="300" cy="112" r="4" />
+      <circle cx="340" cy="98" r="4" />
+      <circle cx="356" cy="116" r="4" />
+    </g>
+
+    <!-- Pantalla del portatil -->
+    <path d="M232 176 h176 l-12 132 h-152 z" fill="url(#laptop)" />
+    <rect x="244" y="188" width="152" height="104" fill="#2b3036" />
+    <g fill="#9aa1a8" opacity="0.75">
+      <rect x="254" y="198" width="60" height="9" rx="3" />
+      <rect x="254" y="214" width="96" height="6" rx="3" opacity="0.6" />
+      <rect x="254" y="228" width="76" height="6" rx="3" opacity="0.45" />
+    </g>
+    <g fill="#596069">
+      <rect x="254" y="246" width="132" height="34" rx="4" />
+    </g>
+    <g fill="#9aa1a8" opacity="0.7">
+      <rect x="262" y="256" width="60" height="6" rx="3" />
+      <rect x="262" y="266" width="42" height="5" rx="3" />
+    </g>
+    <!-- Base del portatil -->
+    <path d="M214 308 h212 l14 22 h-240 z" fill="#c9ced3" />
+  </g>
+
+  <!-- ============ Panel 3: planta y camara ============ -->
+  <g>
+    <rect x="430" y="30" width="184" height="340" fill="#3a3f45" />
+
+    <!-- Camara de seguridad -->
+    <g transform="translate(452 62)">
+      <path d="M0 30 h58 l14 -14 h24 v36 h-24 l-14 -14 h-58 z" fill="#878e95" />
+      <circle cx="86" cy="38" r="13" fill="#c2c8cd" />
+      <circle cx="86" cy="38" r="6" fill="#5d656c" />
+      <rect x="26" y="52" width="7" height="74" fill="#6b7279" />
+      <rect x="12" y="122" width="36" height="7" rx="3" fill="#6b7279" />
+    </g>
+
+    <!-- Maceta -->
+    <g transform="translate(492 208)">
+      <path d="M22 74 h52 l-7 62 h-38 z" fill="url(#pot)" />
+      <g stroke="#828d78" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M48 74 C48 44 26 38 18 14" />
+        <path d="M48 74 C48 42 70 36 78 12" />
+        <path d="M48 74 C48 48 48 30 48 10" />
+      </g>
+    </g>
+  </g>
+</svg>

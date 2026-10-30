@@ -1,0 +1,272 @@
+<main class="registro">
+  <cl-wizard-header
+    [title]="stepTitle()"
+    [step]="step()"
+    [totalSteps]="totalSteps"
+    [percent]="percent()"
+    (back)="onBack()"
+  />
+
+  <div class="registro__body">
+    <!-- ================= PASO 1 ================= -->
+    @if (step() === 1) {
+      <section class="registro__content">
+        <p class="registro__hint">{{ step1Hint }}</p>
+
+        <cl-form-field label="Nombre de la sede" icon="pi pi-building">
+          <input
+            type="text"
+            placeholder="Ej. Club Deportivo Central"
+            [value]="info().name"
+            (input)="onName($any($event.target).value)"
+          />
+        </cl-form-field>
+
+        <cl-form-field label="Ciudad" icon="pi pi-map-marker">
+          <select [value]="info().cityId" (change)="onCity($any($event.target).value)">
+            <option value="" disabled>Selecciona una ciudad</option>
+            @for (city of cities(); track city.id) {
+              <option [value]="city.id">{{ city.name }}</option>
+            }
+          </select>
+        </cl-form-field>
+
+        <cl-form-field label="Dirección exacta" icon="pi pi-map">
+          <input
+            type="text"
+            placeholder="Calle, número, oficina o local"
+            [value]="info().address"
+            (input)="onAddress($any($event.target).value)"
+          />
+        </cl-form-field>
+
+        <cl-form-field
+          label="Teléfono / WhatsApp de contacto"
+          icon="pi pi-phone"
+        >
+          <span class="registro__prefix">{{ phonePrefix }}</span>
+          <input
+            type="tel"
+            placeholder="600 000 000"
+            [value]="info().phone"
+            (input)="onPhone($any($event.target).value)"
+          />
+        </cl-form-field>
+
+        <div class="registro__group">
+          <div class="registro__group-head">
+            <span class="registro__group-title">
+              <i class="pi pi-th-large" aria-hidden="true"></i>
+              Deportes disponibles
+            </span>
+            <span class="registro__group-hint">Selecciona todos los que apliquen</span>
+          </div>
+
+          <cl-chip-select
+            [options]="sportChips()"
+            [selected]="selectedVenueSports()"
+            (selectionChange)="onSportsChange($event)"
+          />
+        </div>
+
+        <button type="button" class="registro__primary" (click)="onNext()">
+          Siguiente
+          <i class="pi pi-arrow-right" aria-hidden="true"></i>
+        </button>
+
+        <p class="registro__footnote">{{ step1Footnote }}</p>
+      </section>
+    }
+
+    <!-- ================= PASO 2 ================= -->
+    @if (step() === 2) {
+      <section class="registro__content">
+        <h2 class="registro__title">Detalles de la cancha o espacio</h2>
+        <p class="registro__hint">{{ step2Hint }}</p>
+
+        @if (currentSpace(); as space) {
+          <div class="registro__space-form">
+            <cl-form-field label="Nombre del espacio">
+              <input
+                type="text"
+                placeholder="Ej. Cancha 1, Salón A"
+                [value]="space.name"
+                (input)="onSpaceName($any($event.target).value)"
+              />
+            </cl-form-field>
+
+            <div class="registro__row">
+              <cl-form-field label="Capacidad (opc.)">
+                <input
+                  type="number"
+                  placeholder="Personas"
+                  [value]="space.capacity"
+                  (input)="onSpaceCapacity($any($event.target).value)"
+                />
+              </cl-form-field>
+
+              <cl-form-field label="Tipo">
+                <select [value]="space.type" (change)="onSpaceType($any($event.target).value)">
+                  @for (type of spaceTypeOptions; track type.value) {
+                    <option [value]="type.value">{{ type.label }}</option>
+                  }
+                </select>
+              </cl-form-field>
+            </div>
+
+            <div class="registro__group">
+              <span class="registro__group-title">Deportes permitidos</span>
+
+              <cl-chip-select
+                [options]="spaceSportChips()"
+                [selected]="selectedSpaceSports()"
+                (selectionChange)="onSpaceSportsChange($event)"
+              />
+            </div>
+          </div>
+        }
+
+        <button type="button" class="registro__primary" (click)="addSpace()">
+          <i class="pi pi-plus-circle" aria-hidden="true"></i>
+          Añadir Espacio
+        </button>
+
+        @if (spaces().length) {
+          <div class="registro__group">
+            <span class="registro__group-title">
+              {{ addedSpacesLabel }} ({{ spaces().length }})
+            </span>
+
+            <div class="registro__spaces">
+              @for (space of spaces(); track space.id) {
+                <cl-space-row
+                  [space]="space"
+                  (edit)="editSpace($event)"
+                  (remove)="removeSpace($event)"
+                />
+              }
+            </div>
+          </div>
+
+          <button type="button" class="registro__duplicate" (click)="duplicateLastSpace()">
+            <i class="pi pi-copy" aria-hidden="true"></i>
+            Duplicar configuración anterior
+          </button>
+        }
+      </section>
+    }
+
+    <!-- ================= PASO 3 ================= -->
+    @if (step() === 3) {
+      <section class="registro__content">
+        <div class="registro__group">
+          <span class="registro__group-title">Anticipo (Depósito)</span>
+          <span class="registro__group-hint">
+            Monto requerido para confirmar la reserva del espacio.
+          </span>
+
+          <div class="registro__segments">
+            @for (mode of depositModes; track mode.value) {
+              <button
+                type="button"
+                class="registro__segment"
+                [class.registro__segment--active]="
+                  (mode.value === 'fixed') === policies().depositFixed
+                "
+                (click)="onDepositMode(mode.value)"
+              >
+                {{ mode.label }}
+              </button>
+            }
+          </div>
+
+          <div class="registro__deposit">
+            <input
+              type="number"
+              [value]="policies().depositPercent"
+              (input)="onDepositValue($any($event.target).value)"
+            />
+            <span class="registro__deposit-unit">
+              {{ policies().depositFixed ? '$' : '%' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="registro__group">
+          <span class="registro__group-title">Ventana de Cancelación</span>
+          <span class="registro__group-hint">
+            Tiempo mínimo antes de la reserva para cancelar sin penalización.
+          </span>
+
+          <div class="registro__select">
+            <select
+              [value]="policies().cancelWindowHours"
+              (change)="onCancelWindow($any($event.target).value)"
+            >
+              @for (window of cancelWindowOptions; track window.value) {
+                <option [value]="window.value">{{ window.label }}</option>
+              }
+            </select>
+            <i class="pi pi-chevron-down" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <div class="registro__group">
+          <span class="registro__group-title">Método de pago del saldo</span>
+          <span class="registro__group-hint">
+            ¿Dónde podrán los usuarios pagar el monto restante?
+          </span>
+
+          <div class="registro__options">
+            @for (method of balanceMethods; track method.value) {
+              <button
+                type="button"
+                class="registro__option"
+                [class.registro__option--active]="
+                  policies().balanceMethod === method.value
+                "
+                (click)="onBalanceMethod(method.value)"
+              >
+                <span class="registro__option-check" aria-hidden="true">
+                  @if (policies().balanceMethod === method.value) {
+                    <i class="pi pi-check"></i>
+                  }
+                </span>
+
+                <span class="registro__option-body">
+                  <span class="registro__option-title">{{ method.title }}</span>
+                  <span class="registro__option-text">{{ method.description }}</span>
+                </span>
+
+                <i [class]="method.icon" aria-hidden="true"></i>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="registro__save">
+          <button
+            type="button"
+            class="registro__primary"
+            [disabled]="saving()"
+            (click)="onNext()"
+          >
+            Guardar Configuración
+            <i class="pi pi-check" aria-hidden="true"></i>
+          </button>
+        </div>
+      </section>
+    }
+  </div>
+
+  @if (step() === 2) {
+    <footer class="registro__footer">
+      <button type="button" class="registro__back" (click)="onBack()">Anterior</button>
+
+      <button type="button" class="registro__primary registro__primary--footer" (click)="onNext()">
+        Continuar
+        <i class="pi pi-arrow-right" aria-hidden="true"></i>
+      </button>
+    </footer>
+  }
+</main>

@@ -1,46 +1,34 @@
-<article [class]="'match match--' + match().sport">
-  @if (showMedia()) {
-    <div class="match__media">
-      <img [src]="match().imageSrc" [alt]="match().venue" />
-      <span class="match__sport">{{ match().sportLabel }}</span>
-      <span class="match__time">
-        <i [class]="clockIcon()" aria-hidden="true"></i>
-        {{ match().startTime }}
-      </span>
-    </div>
-  }
+<article class="match" [class]="'match match--' + match().sport">
+  <span class="match__media">
+    <img [src]="match().imageSrc" [alt]="match().venue" />
+  </span>
 
   <div class="match__body">
     <h3 class="match__title">{{ match().venue }}</h3>
 
-    <p class="match__address">
-      <i [class]="locationIcon()" aria-hidden="true"></i>
+    <p class="match__where">
+      <span class="match__sport">{{ match().sportLabel }}</span>
+      <span class="match__sep" aria-hidden="true">·</span>
       <span>{{ match().address }}</span>
+      @if (distanceLabel()) {
+        <span class="match__sep" aria-hidden="true">·</span>
+        <span>{{ distanceLabel() }}</span>
+      }
     </p>
 
-    @if (showAvailability()) {
-      <div class="match__availability">
-        <span class="match__availability-label">{{ availabilityLabel() }}</span>
-        <span class="match__count">
-          {{ match().joinedPlayers }}/{{ match().totalPlayers }} {{ playersLabel() }}
-        </span>
-      </div>
-
-      <p-progressbar
-        [value]="fillPercent()"
-        [showValue]="false"
-        styleClass="match__progress"
-      />
-    }
-
-    @if (showCta()) {
-      <p-button
-        [label]="ctaLabel()"
-        [severity]="ctaSeverity()"
-        [disabled]="ctaDisabled()"
-        styleClass="match__cta"
-        (onClick)="join.emit(match())"
-      />
-    }
+    <p class="match__meta">
+      <span class="match__time">{{ match().startTime }}</span>
+      <span class="match__sep" aria-hidden="true">·</span>
+      <span>{{ match().joinedPlayers }} de {{ match().totalPlayers }} jugadores</span>
+    </p>
   </div>
+
+  <button
+    type="button"
+    class="match__cta"
+    [disabled]="ctaDisabled()"
+    (click)="join.emit(match())"
+  >
+    {{ ctaLabel() }}
+  </button>
 </article>

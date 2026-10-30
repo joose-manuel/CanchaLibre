@@ -1,0 +1,25 @@
+<div class="dialog" [class.dialog--closing]="closing()" role="dialog" aria-modal="true">
+  <button
+    type="button"
+    class="dialog__backdrop"
+    aria-label="Cerrar"
+    (click)="cancelled.emit()"
+  ></button>
+
+  <div class="dialog__card">
+    <span class="dialog__icon" aria-hidden="true">
+      <i [class]="icon()"></i>
+    </span>
+
+    <h2 class="dialog__title">{{ title() }}</h2>
+    <p class="dialog__message">{{ message() }}</p>
+
+    <button type="button" class="dialog__primary" (click)="confirmed.emit()">
+      {{ primaryLabel() }}
+    </button>
+
+    <button type="button" class="dialog__secondary" (click)="cancelled.emit()">
+      {{ secondaryLabel() }}
+    </button>
+  </div>
+</div>

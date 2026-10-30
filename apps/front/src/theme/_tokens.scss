@@ -87,6 +87,14 @@
   --cl-sport-padel-bg: rgba(255, 255, 255, 0.92);
   --cl-sport-padel-border: rgba(29, 78, 216, 0.16);
 
+  /*
+   * Acentos por deporte: el punto de color del filtro, la etiqueta del
+   * deporte y la barra de progreso toman el color de la disciplina.
+   */
+  --cl-accent-futbol: #22c55e;
+  --cl-accent-padel: #3b82f6;
+  --cl-accent-basket: #f59e0b;
+
   /* ---------- Scrim sobre imágenes ---------- */
   --cl-scrim-media: rgba(15, 23, 42, 0.72);
   /* Texto sobre scrim oscuro: siempre claro, en ambos temas. */
@@ -169,6 +177,11 @@
   --cl-sport-basket: #fb923c;
   --cl-sport-padel-bg: rgba(21, 27, 38, 0.92);
   --cl-sport-padel-border: rgba(147, 197, 253, 0.24);
+
+  /* Acentos por deporte (mismos valores: ya son legibles sobre fondo oscuro). */
+  --cl-accent-futbol: #22c55e;
+  --cl-accent-padel: #3b82f6;
+  --cl-accent-basket: #f59e0b;
 
   /* ---------- Scrim sobre imágenes ---------- */
   --cl-scrim-media: rgba(0, 0, 0, 0.62);

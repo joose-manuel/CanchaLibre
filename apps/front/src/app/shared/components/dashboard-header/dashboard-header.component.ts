@@ -4,7 +4,8 @@ import { UserService } from '../../pages/dashboard/services/user.service';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 /**
- * Cabecera del dashboard: saludo, toggle de tema y acceso al perfil.
+ * Cabecera del dashboard: fecha, saludo, toggle de tema, acción de crear y
+ * acceso al perfil.
  */
 @Component({
   selector: 'cl-dashboard-header',
@@ -28,6 +29,18 @@ export class DashboardHeaderComponent {
     };
   });
 
+  /** "VIERNES 30 DE OCTUBRE" */
+  protected readonly dateLabel = computed(() =>
+    new Date()
+      .toLocaleDateString('es-CO', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+      })
+      .toUpperCase(),
+  );
+
   readonly greeting = input('Hola');
   readonly avatarPressed = output<void>();
+  readonly createPressed = output<void>();
 }

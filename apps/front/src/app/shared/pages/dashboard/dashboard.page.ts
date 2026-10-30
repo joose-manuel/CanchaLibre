@@ -5,6 +5,7 @@ import { DashboardHeaderComponent } from '../../components/dashboard-header/dash
 import { FilterChipsComponent } from '../../components/filter-chips/filter-chips.component';
 import { MatchCardComponent } from '../../components/match-card/match-card.component';
 import { MatchDetailComponent } from '../../components/match-detail/match-detail.component';
+import { NextMatchCardComponent } from '../../components/next-match-card/next-match-card.component';
 import { PromoBannerComponent } from '../../components/promo-banner/promo-banner.component';
 import { SearchFieldComponent } from '../../components/search-field/search-field.component';
 import { SectionHeaderComponent } from '../../components/section-header/section-header.component';
@@ -25,6 +26,7 @@ const ALL_SPORTS = 'todos';
     FilterChipsComponent,
     MatchCardComponent,
     MatchDetailComponent,
+    NextMatchCardComponent,
     PromoBannerComponent,
     SearchFieldComponent,
     SectionHeaderComponent,
@@ -38,11 +40,17 @@ export class DashboardPage {
   private readonly mediaQuery = inject(MediaQueryService);
   private readonly router = inject(Router);
 
+  /**
+   * Filtros de deporte.
+   *
+   * El punto de color identifica la disciplina: fútbol verde, pádel azul,
+   * basket naranja. "Todos" no lleva punto porque no es un deporte.
+   */
   protected readonly sportFilters: FilterOption[] = [
     { value: ALL_SPORTS, label: 'Todos' },
-    { value: 'futbol', label: 'Fútbol' },
-    { value: 'padel', label: 'Pádel' },
-    { value: 'basket', label: 'Basket' },
+    { value: 'futbol', label: 'Fútbol', dotColor: 'var(--cl-accent-futbol)' },
+    { value: 'padel', label: 'Pádel', dotColor: 'var(--cl-accent-padel)' },
+    { value: 'basket', label: 'Basket', dotColor: 'var(--cl-accent-basket)' },
   ];
 
   protected readonly navItems: MenuItem[] = MAIN_NAV_ITEMS;
@@ -58,6 +66,7 @@ export class DashboardPage {
     this.isDesktop() ? 'sidebar' : 'bottom',
   );
 
+  /** Partidos que pasan el filtro de deporte y la búsqueda. */
   protected readonly matches = computed(() => {
     const sport = this.activeSport();
     const term = this.searchTerm().trim().toLowerCase();
@@ -70,6 +79,34 @@ export class DashboardPage {
     });
   });
 
+  /**
+   * El partido que empieza pronto.
+   *
+   * Va en la card protagonista; el resto queda en la lista de abajo.
+   */
+  protected readonly nextMatch = computed<MatchSummary | null>(() => {
+    const withCountdown = this.matches().filter(
+      (match) => match.startsInMinutes !== undefined,
+    );
+
+    const candidates = withCountdown.length > 0 ? withCountdown : this.matches();
+
+    if (candidates.length === 0) {
+      return null;
+    }
+
+    return [...candidates].sort(
+      (a, b) => (a.startsInMinutes ?? Infinity) - (b.startsInMinutes ?? Infinity),
+    )[0];
+  });
+
+  /** El resto de partidos, para la lista "Más partidos hoy". */
+  protected readonly otherMatches = computed(() => {
+    const featured = this.nextMatch();
+
+    return this.matches().filter((match) => match.id !== featured?.id);
+  });
+
   protected openMatchDetail(match: MatchSummary): void {
     this.detailClosing.set(false);
     this.selectedMatch.set(match);
@@ -80,7 +117,7 @@ export class DashboardPage {
     void this.router.navigateByUrl('/perfil');
   }
 
-  /** El FAB "Crear" abre el asistente de creación de partido. */
+  /** El botón "+" abre el asistente de creación de partido. */
   protected goToCreateMatch(): void {
     void this.router.navigateByUrl('/crear-partido');
   }

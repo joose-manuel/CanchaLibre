@@ -1,9 +1,19 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { ProfileSportKey } from '../../pages/profile/interfaces/profile.interface';
+
+/** Deportes con icono vectorial propio. */
+export type SportIconKey =
+  | 'futbol'
+  | 'padel'
+  | 'basket'
+  | 'tenis'
+  | 'voley'
+  | 'gimnasio';
 
 /**
- * Icono vectorial de deporte. Se usa en el perfil (deportes preferidos) y en
- * el historial de partidos.
+ * Icono vectorial de deporte.
+ *
+ * Se usa en el perfil (deportes preferidos), en el historial de partidos y
+ * en los chips de deportes del registro de sede.
  */
 @Component({
   selector: 'cl-sport-icon',
@@ -12,6 +22,6 @@ import { ProfileSportKey } from '../../pages/profile/interfaces/profile.interfac
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SportIconComponent {
-  readonly sport = input.required<ProfileSportKey>();
+  readonly sport = input.required<SportIconKey>();
   readonly size = input(18);
 }

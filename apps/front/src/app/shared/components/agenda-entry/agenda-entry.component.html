@@ -1,0 +1,42 @@
+<article class="entry" [attr.data-status]="entry().status">
+  <div class="entry__time">
+    <strong class="entry__time-value">{{ entry().timeLabel }}</strong>
+    <span class="entry__time-duration">{{ entry().durationLabel }}</span>
+  </div>
+
+  <div class="entry__body">
+    <div class="entry__head">
+      <h3 class="entry__title">{{ entry().title }}</h3>
+      <span class="entry__badge">{{ entry().statusLabel }}</span>
+    </div>
+
+    <p class="entry__organizer">{{ entry().organizerName }}</p>
+
+    <p class="entry__note">
+      @if (entry().status === 'confirmed') {
+        <i class="pi pi-check-circle" aria-hidden="true"></i>
+      } @else if (entry().status === 'pending') {
+        <i class="pi pi-clock" aria-hidden="true"></i>
+      } @else {
+        <i class="pi pi-ban" aria-hidden="true"></i>
+      }
+      {{ entry().statusNote }}
+    </p>
+
+    @if (entry().actionable) {
+      <div class="entry__actions">
+        <button type="button" class="entry__action entry__action--primary" (click)="confirm.emit(entry())">
+          Confirmar
+        </button>
+        <button type="button" class="entry__action entry__action--danger" (click)="reject.emit(entry())">
+          Rechazar
+        </button>
+      </div>
+    } @else {
+      <button type="button" class="entry__detail" (click)="open.emit(entry())">
+        Ver detalle
+        <i class="pi pi-chevron-right" aria-hidden="true"></i>
+      </button>
+    }
+  </div>
+</article>

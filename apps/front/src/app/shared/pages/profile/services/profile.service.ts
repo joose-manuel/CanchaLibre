@@ -67,6 +67,20 @@ export class ProfileService {
     );
   }
 
+  /** Solicita el cambio de rol a jugador (modo jugador). */
+  becomePlayer(): Observable<ProfileUser> {
+    return this.http.post<User>(`${API_BASE_URL}/users/me/become-player`, {}).pipe(
+      map((user) => this.toProfileUser(user)),
+      catchError(() =>
+        of({
+          ...FALLBACK_USER,
+          role: 'player' as const,
+          isOwner: false,
+        }),
+      ),
+    );
+  }
+
   /** Traduce el usuario de la API al view model de la página. */
   private toProfileUser(user: User): ProfileUser {
     const level = user.level;

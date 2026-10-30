@@ -1,0 +1,201 @@
+@use '../../../../theme/surface' as surface;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: var(--cl-color-background);
+}
+
+.canchas {
+  display: flex;
+  min-height: 100dvh;
+}
+
+.canchas__body {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.canchas__top {
+  @include surface.cl-surface-float(0);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.canchas__eyebrow {
+  margin: 0 0 2px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cl-color-primary);
+}
+
+.canchas__title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--cl-color-text);
+}
+
+.canchas__add {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s ease;
+}
+
+.canchas__add:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 30px -14px var(--cl-color-primary-soft-strong);
+}
+
+.canchas__add:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Contenido ---------- */
+
+.canchas__content {
+  padding: 18px 16px 0;
+}
+
+.canchas__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.canchas__empty {
+  margin: 32px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--cl-color-text-muted);
+}
+
+/* ---------- Estado vacío ---------- */
+
+.canchas__empty-state {
+  @include surface.cl-surface(20px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.canchas__empty-icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 6px;
+  border-radius: 18px;
+  background: var(--cl-color-primary-soft);
+  color: var(--cl-color-primary);
+  font-size: 24px;
+}
+
+.canchas__empty-title {
+  margin: 0;
+  font-family: var(--cl-font-heading, 'Outfit Variable', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cl-color-text);
+}
+
+.canchas__empty-text {
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--cl-color-text-secondary);
+}
+
+.canchas__empty-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--cl-color-primary);
+  color: var(--cl-color-primary-contrast);
+  font-family: var(--cl-font-family);
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.24s ease;
+}
+
+.canchas__empty-action:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 var(--cl-highlight-inset-strong),
+    0 18px 30px -14px var(--cl-color-primary-soft-strong);
+}
+
+/* ---------- Escritorio ---------- */
+
+@media (min-width: 960px) {
+  .canchas__body {
+    padding-bottom: 0;
+  }
+
+  .canchas__top {
+    padding: 24px 40px;
+  }
+
+  .canchas__content {
+    padding: 28px 40px 48px;
+    max-width: 860px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canchas__add,
+  .canchas__empty-action {
+    transition: opacity 0.2s ease;
+  }
+
+  .canchas__add:hover,
+  .canchas__empty-action:hover {
+    transform: none;
+  }
+}

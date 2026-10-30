@@ -2,11 +2,19 @@
   display: block;
 }
 
+/*
+ * Barra de filtros sobre una superficie hundida: las opciones " Todos " es
+ * la única con fondo (marca la selección) y el resto son texto con el punto
+ * de color del deporte.
+ */
 .chips {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding: 5px;
+  border: 1px solid var(--cl-border-hairline);
+  border-radius: 14px;
+  background: var(--cl-color-surface-muted);
   scrollbar-width: none;
 }
 
@@ -15,58 +23,60 @@
 }
 
 .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   flex: 0 0 auto;
-  height: 34px;
-  padding: 0 16px;
-  border: 1px solid var(--cl-border-hairline);
-  border-radius: 999px;
-  background: var(--cl-color-surface-muted);
+  height: 38px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
   font-family: var(--cl-font-family);
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--cl-color-text-secondary);
   cursor: pointer;
-  box-shadow:
-    inset 0 1px 0 var(--cl-highlight-inset),
-    0 1px 2px rgba(15, 23, 42, 0.04);
+  white-space: nowrap;
   transition:
-    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.24s ease,
-    background 0.24s ease,
-    border-color 0.24s ease,
-    color 0.24s ease;
+    background 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.24s ease,
+    box-shadow 0.28s ease,
+    transform 0.16s ease-out;
 }
 
 .chip:hover {
-  transform: translateY(-1px);
-  border-color: var(--cl-border-hairline-strong);
-  box-shadow:
-    inset 0 1px 0 var(--cl-highlight-inset),
-    0 6px 14px -10px rgba(15, 23, 42, 0.4);
+  color: var(--cl-color-text);
 }
 
 .chip:active {
-  transform: translateY(0) scale(0.97);
+  transform: scale(0.97);
 }
 
+/* La opción activa se apoya sobre la barra (elevación de material). */
 .chip--active {
-  background: linear-gradient(135deg, var(--cl-color-primary) 0%, var(--cl-color-primary-hover) 100%);
-  border-color: transparent;
-  color: var(--cl-color-primary-contrast);
+  background: var(--cl-color-surface-raised);
+  color: var(--cl-color-text);
+  font-weight: 800;
   box-shadow:
     inset 0 1px 0 var(--cl-highlight-inset-strong),
-    0 8px 18px -14px var(--cl-color-primary-soft-strong);
-  font-weight: 700;
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 6px 14px -10px rgba(15, 23, 42, 0.4);
 }
 
-.chip--active:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 var(--cl-highlight-inset-strong),
-    0 12px 22px -14px var(--cl-color-primary-soft-strong);
+.chip__dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
 }
 
-.chip:focus-visible {
-  outline: 2px solid var(--cl-color-primary, #137fec);
-  outline-offset: 2px;
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition: opacity 0.2s ease;
+  }
+
+  .chip:active {
+    transform: none;
+  }
 }

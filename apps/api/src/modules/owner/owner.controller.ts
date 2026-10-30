@@ -28,6 +28,11 @@ export class OwnerController {
     return this.owner.schedule(query, user);
   }
 
+  @Get('bookings')
+  listBookings(@CurrentUser() user: AuthenticatedUser): Promise<OwnerScheduleItem[]> {
+    return this.owner.listBookings(user);
+  }
+
   @Get('dashboard')
   dashboard(@CurrentUser() user: AuthenticatedUser): Promise<OwnerDashboardModel> {
     return this.owner.dashboard(user);

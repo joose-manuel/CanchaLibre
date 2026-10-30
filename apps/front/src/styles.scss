@@ -7,3 +7,12 @@ body {
   margin: 0;
   font-family: var(--cl-font-family);
 }
+
+/*
+ * Mientras hay un diálogo modal abierto el fondo no debe desplazarse:
+ * si el usuario arrastra sobre el scrim, la página de debajo se movería y
+ * el diálogo parecería flotar sobre contenido cambiante.
+ */
+body.cl-dialog-open {
+  overflow: hidden;
+}

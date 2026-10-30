@@ -1,0 +1,63 @@
+<main class="cambiar-perfil">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="cambiar-perfil__menu cambiar-perfil__menu--sidebar"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="sidebar"
+    />
+  }
+
+  <div class="cambiar-perfil__body">
+    <header class="cambiar-perfil__top">
+      <button
+        type="button"
+        class="cambiar-perfil__back"
+        aria-label="Volver al perfil"
+        (click)="goBack()"
+      >
+        <i class="pi pi-arrow-left" aria-hidden="true"></i>
+      </button>
+
+      <h1 class="cambiar-perfil__title">{{ title }}</h1>
+
+      <span class="cambiar-perfil__spacer" aria-hidden="true"></span>
+    </header>
+
+    <section class="cambiar-perfil__content">
+      @for (mode of modes(); track mode.key) {
+        <cl-profile-mode-card
+          [mode]="mode"
+          [active]="isActive(mode)"
+          [actionLabel]="actionLabel(mode)"
+          [secondary]="isActive(mode)"
+          [disabled]="pending()"
+          (modeSelected)="onSelect($event)"
+        />
+      }
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="cambiar-perfil__menu cambiar-perfil__menu--bottom"
+      [items]="navItems"
+      activeKey="perfil"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>
+
+@if (dialogOpen()) {
+  <cl-confirm-dialog
+    title="¿Administras una cancha?"
+    message="Esta sesión es exclusiva para propietarios o gestores de complejos deportivos. Podrás gestionar reservas y ver tus ingresos."
+    icon="pi pi-check"
+    primaryLabel="Sí, continuar"
+    secondaryLabel="Aún no"
+    [closing]="dialogClosing()"
+    (confirmed)="onConfirmMode()"
+    (cancelled)="onCancelMode()"
+  />
+}

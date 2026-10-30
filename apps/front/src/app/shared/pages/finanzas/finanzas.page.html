@@ -1,0 +1,100 @@
+<main class="finanzas">
+  @if (isDesktop()) {
+    <cl-app-menu
+      class="finanzas__menu finanzas__menu--sidebar"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="sidebar"
+    />
+  }
+
+  <div class="finanzas__body">
+    <header class="finanzas__top">
+      <button
+        type="button"
+        class="finanzas__back"
+        aria-label="Volver"
+        (click)="onSectionChange('agenda')"
+      >
+        <i class="pi pi-arrow-left" aria-hidden="true"></i>
+      </button>
+
+      <h1 class="finanzas__title">Financial Summary</h1>
+
+      <span class="finanzas__spacer" aria-hidden="true"></span>
+    </header>
+
+    <cl-subnav
+      [items]="subnavItems"
+      [active]="activeSection()"
+      (selectedChange)="onSectionChange($event)"
+    />
+
+    <section class="finanzas__content">
+      <div class="finanzas__periods">
+        @for (item of periods; track item.value) {
+          <button
+            type="button"
+            class="finanzas__period"
+            [class.finanzas__period--active]="item.value === period()"
+            [attr.aria-pressed]="item.value === period()"
+            (click)="onPeriodChange(item.value)"
+          >
+            {{ item.label }}
+          </button>
+        }
+      </div>
+
+      <article class="finanzas__total">
+        <span class="finanzas__total-label">
+          {{ totalLabel }}
+          <i class="pi pi-credit-card" aria-hidden="true"></i>
+        </span>
+
+        <strong class="finanzas__total-value">{{ summary().totalDepositsLabel }}</strong>
+
+        <span class="finanzas__total-trend">
+          <i class="pi pi-chart-line" aria-hidden="true"></i>
+          {{ summary().trendLabel }}
+        </span>
+      </article>
+
+      <div class="finanzas__section-head">
+        <h2 class="finanzas__section-title">{{ recentLabel }}</h2>
+        <button type="button" class="finanzas__filter">
+          {{ filterLabel }}
+          <i class="pi pi-filter" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="finanzas__list">
+        @for (transaction of transactions(); track transaction.id) {
+          <button type="button" class="transaction" [attr.data-tone]="transaction.tone">
+            <span class="transaction__body">
+              <span class="transaction__code">{{ transaction.code }}</span>
+              <span class="transaction__date">{{ transaction.dateLabel }}</span>
+              <span class="transaction__title">{{ transaction.title }}</span>
+              <span class="transaction__kind">{{ transaction.kindLabel }}</span>
+            </span>
+
+            <span class="transaction__right">
+              <strong class="transaction__amount">{{ transaction.amountLabel }}</strong>
+              <span class="transaction__status">{{ transaction.statusLabel }}</span>
+              <i class="pi pi-chevron-right transaction__arrow" aria-hidden="true"></i>
+            </span>
+          </button>
+        }
+      </div>
+    </section>
+  </div>
+
+  @if (!isDesktop()) {
+    <cl-app-menu
+      class="finanzas__menu finanzas__menu--bottom"
+      [items]="navItems"
+      activeKey="agenda"
+      variant="bottom"
+      [showCreate]="false"
+    />
+  }
+</main>
